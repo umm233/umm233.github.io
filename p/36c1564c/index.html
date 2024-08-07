@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近才发现 manim 已经有正式版本了 1.0.0 以上，目前最新是1.1.0 manim 的安装配置过程大大简化，在这里更新一下对于 manim V1.0.0 及以上版本的安装，以及如何配置 manim Latex支持中文等 两年前写的manim安装配置指北是针对 manim V1.0.0 以下版本的安装配置 希望 manim 的安装配置不再是劝退大家使用 manim 的门槛，想看到大家用 m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="manim安装配置指北（二）">
+<meta property="og:url" content="https://umm.js.org/p/36c1564c/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="最近才发现 manim 已经有正式版本了 1.0.0 以上，目前最新是1.1.0 manim 的安装配置过程大大简化，在这里更新一下对于 manim V1.0.0 及以上版本的安装，以及如何配置 manim Latex支持中文等 两年前写的manim安装配置指北是针对 manim V1.0.0 以下版本的安装配置 希望 manim 的安装配置不再是劝退大家使用 manim 的门槛，想看到大家用 m">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-28T15:39:30.000Z">
+<meta property="article:modified_time" content="2021-08-28T15:39:30.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="manim">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://umm.js.org/p/36c1564c/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/36c1564c/","path":"p/36c1564c/","title":"manim安装配置指北（二）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>manim安装配置指北（二） | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#First-of-all"><span class="nav-number">1.</span> <span class="nav-text">First of all</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">前置条件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#System-requirements"><span class="nav-number">2.1.</span> <span class="nav-text">System requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-manim"><span class="nav-number">2.2.</span> <span class="nav-text">安装 manim</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmanim%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87"><span class="nav-number">3.</span> <span class="nav-text">配置manim支持中文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">95</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/36c1564c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="manim安装配置指北（二） | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          manim安装配置指北（二）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-28 23:39:30" itemprop="dateCreated datePublished" datetime="2021-08-28T23:39:30+08:00">2021-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/manim/" itemprop="url" rel="index"><span itemprop="name">manim</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近才发现 manim 已经有正式版本了 <code>1.0.0</code> 以上，目前最新是<code>1.1.0</code></p>
+<p>manim 的安装配置过程大大简化，在这里更新一下对于 <strong>manim V1.0.0 及以上版本</strong>的安装，以及如何配置 manim Latex支持中文等</p>
+<p>两年前写的<a href="/p/637d228f">manim安装配置指北</a>是针对 <strong>manim V1.0.0 以下版本</strong>的安装配置</p>
+<p>希望 manim 的安装配置不再是劝退大家使用 manim 的门槛，想看到大家用 manim 制作出有意思的数学动画~</p>
+<span id="more"></span>
+
+<h2 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h2><p>3b1b 出了<a target="_blank" rel="noopener" href="https://3b1b.github.io/manim/">manim官方教程</a>🎉</p>
+<p>里面有关于manim的安装配置和相关动画的制作教程，推荐！</p>
+<p>下面是对<a target="_blank" rel="noopener" href="https://3b1b.github.io/manim/getting_started/installation.html">manim官方安装教程</a>的一些补充以及讲一讲如何在manim中使用中文。</p>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><p>manim 是运行在 Python 3.6 以上的环境中（官方推荐使用 Python 3.8 版本）</p>
+<h3 id="System-requirements"><a href="#System-requirements" class="headerlink" title="System requirements"></a>System requirements</h3><ol>
+<li><p>安装 FFmpeg<br>这个3b1b在README里给了一个 <a target="_blank" rel="noopener" href="https://www.wikihow.com/Install-FFmpeg-on-Windows">教程</a>，安排的明明白白，这里不再赘述。<br> 终端执行以下命令，出现版本信息说明安装配置成功</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 OpenGL</p>
+<blockquote>
+<p> 因为 OpenGL 包含在 python 包 PyOpenGL 中)，所以通过 pip 安装 PyOpenGL 即可</p>
+</blockquote>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install PyOpenGL</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LaTeX （可选，如果需要用到 LaTex 的话）</p>
+<blockquote>
+<p>PS. 以前官方推荐使用 <a target="_blank" rel="noopener" href="https://miktex.org/download">MiKTeX</a>，安装方式可以参考<a href="/p/637d228f/#System-requirements">System requirements</a>这节里关于LaTex的安装。</p>
+</blockquote>
+<p> 现在官方推荐使用 <a target="_blank" rel="noopener" href="https://tug.org/texlive/">TeXLive-full</a>，安装方式根据<a target="_blank" rel="noopener" href="https://tug.org/texlive/acquire-netinstall.html">texlive页面的说明</a>下载安装就行。</p>
+<p> 一开始我用的是 MiKTeX，写文章的时候看到有推荐用 TeXLive-full，使用体验没有 MiKTeX 好，因为安装的时候一直在下载各种宏包，感觉是要把全部宏包缓存到本地😢<br> <del>到文章写完我还没用上 TeXLive，还在下宏包（安装目录已经 2.77G了）…</del><br> 最后下完在<code>texmf-dist</code>目录下各种各样宏包一共有<code>6.8G</code>😶</p>
+<blockquote>
+<p>个人推荐使用 MiKTeX</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="安装-manim"><a href="#安装-manim" class="headerlink" title="安装 manim"></a>安装 manim</h3><p>最简单的方式就是直接通过pip安装<code>manimgl</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install manimgl</span><br></pre></td></tr></table></figure>
+
+<p>还可以通过源码来使用：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/3b1b/manim.git</span><br><span class="line"><span class="built_in">cd</span> manim</span><br><span class="line">pip install -e .</span><br><span class="line">manimgl example_scenes.py OpeningManimExample</span><br></pre></td></tr></table></figure>
+
+<p>或者通过 Anaconda 创建一个 manim 的虚拟环境：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/3b1b/manim.git</span><br><span class="line"><span class="built_in">cd</span> manim</span><br><span class="line">conda create -n manim python=3.8</span><br><span class="line">conda activate manim</span><br><span class="line">pip install -e .</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置manim支持中文"><a href="#配置manim支持中文" class="headerlink" title="配置manim支持中文"></a>配置manim支持中文</h2><p>在之前的文章<a href="/p/637d228f/#%E9%85%8D%E7%BD%AEmanim%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87">manim安装配置指北</a>里，旧版本的 manim 是在<code>\manim-master\manimlib\constants.py</code>直接修改：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- TEX_USE_CTEX=False</span></span><br><span class="line"><span class="addition">+ TEX_USE_CTEX=True</span></span><br></pre></td></tr></table></figure>
+
+<p>而对于最新版本，出现了配置文件的东西，可以在<code>custom_config.yml</code>中进行配置。</p>
+<blockquote>
+<p>参考manim官方教程里的<a target="_blank" rel="noopener" href="https://3b1b.github.io/manim/documentation/custom_config.html">custom_config</a></p>
+</blockquote>
+<p>复制一份<code>manim/manimlib/default_config.yml</code>放在程序目录下，然后重命名为<code>custom_config.yml</code>，然后修改即可使用中文：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tex:</span><br><span class="line"><span class="deletion">-  executable: &quot;latex&quot;</span></span><br><span class="line"><span class="addition">+  executable: &quot;xelatex -no-pdf&quot;</span></span><br><span class="line"><span class="deletion">-  template_file: &quot;tex_template.tex&quot;</span></span><br><span class="line"><span class="addition">+  template_file: &quot;ctex_template.tex&quot;</span></span><br><span class="line"><span class="deletion">-  intermediate_filetype: &quot;dvi&quot;</span></span><br><span class="line"><span class="addition">+  intermediate_filetype: &quot;xdv&quot;</span></span><br><span class="line">  text_to_replace: &quot;[tex_expression]&quot;</span><br><span class="line">  # For ctex, use the following configuration</span><br><span class="line">  # executable: &quot;xelatex -no-pdf&quot;</span><br><span class="line">  # template_file: &quot;ctex_template.tex&quot;</span><br><span class="line">  # intermediate_filetype: &quot;xdv&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>添加了custom_config.yml的目录结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">manim/</span><br><span class="line">├── manimlib/ (这个目录是手动安装 manim 才有的，通过 pip 安装 manimgl是没有的)</span><br><span class="line">│   ├── animation/</span><br><span class="line">│   ├── ...</span><br><span class="line">│   ├── default_config.yml</span><br><span class="line">│   └── window.py</span><br><span class="line">├── output/</span><br><span class="line">├── code.py</span><br><span class="line">└── custom_config.yml</span><br></pre></td></tr></table></figure>
+
+<p>测试一下中文，新版本使用<code>Tex</code>和<code>TexText</code>代替了<code>TexMobject</code>对象（<a target="_blank" rel="noopener" href="https://github.com/3b1b/videos/commit/24a2001c6b591c2d272cc3c6f8b872ac3a6b8c22">TexMobject -&gt; Tex and TextMobject -&gt; TexText</a>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">test_cn</span>(<span class="title class_ inherited__">Scene</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">construct</span>(<span class="params">self</span>):</span><br><span class="line">        text01 = TexText(<span class="string">&quot;黑夜给了我一双黑色的眼睛，&quot;</span>)</span><br><span class="line">        text02 = TexText(<span class="string">&quot;我却用它寻找光明。&quot;</span>)</span><br><span class="line">        text03 = TexText(<span class="string">&quot;顾城 《一代人》&quot;</span>)</span><br><span class="line">        text_group = VGroup(text01, text02)</span><br><span class="line">        text02.next_to(text01, DOWN)</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.play(Write(text01))</span><br><span class="line">        <span class="variable language_">self</span>.wait(<span class="number">1</span>)</span><br><span class="line">        <span class="variable language_">self</span>.play(TransformFromCopy(text01, text02))</span><br><span class="line">        <span class="variable language_">self</span>.wait(<span class="number">1</span>)</span><br><span class="line">        <span class="variable language_">self</span>.play(Transform(text_group,text03))</span><br><span class="line">        <span class="variable language_">self</span>.wait(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>运行:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">manimgl test.py test_cn</span><br></pre></td></tr></table></figure>
+
+<p>之前写的测试用例要稍微改一下，我发现将<code>TexMobject</code>改成<code>TexText</code>可以，而改成<code>Tex</code>不行，中文在渲染生成的时候会出现乱码。然后看了一下源码里<code>Tex</code>和<code>TexText</code>不一样的地方：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TexText</span>(<span class="title class_ inherited__">Tex</span>):</span><br><span class="line">    CONFIG = &#123;</span><br><span class="line">        <span class="string">&quot;math_mode&quot;</span>: <span class="literal">False</span>,</span><br><span class="line">        <span class="string">&quot;arg_separator&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Tex</code>和<code>TexText</code>都是继承了<code>SingleStringTex</code>对象，<code>TexText</code> 在配置（<code>CONFIG</code>）中关闭了 <code>math_mode</code>，将传入的参数在<code>get_tex_file_body</code>方法中当成文本处理，而不转换成数学公式格式处理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_tex_file_body</span>(<span class="params">self, tex_string</span>):</span><br><span class="line">    new_tex = <span class="variable language_">self</span>.get_modified_expression(tex_string)</span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.math_mode:</span><br><span class="line">        new_tex = <span class="string">&quot;\\begin&#123;align*&#125;\n&quot;</span> + new_tex + <span class="string">&quot;\n\\end&#123;align*&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">    new_tex = <span class="variable language_">self</span>.alignment + <span class="string">&quot;\n&quot;</span> + new_tex</span><br><span class="line"></span><br><span class="line">    tex_config = get_tex_config()</span><br><span class="line">    <span class="keyword">return</span> tex_config[<span class="string">&quot;tex_body&quot;</span>].replace(</span><br><span class="line">        tex_config[<span class="string">&quot;text_to_replace&quot;</span>],</span><br><span class="line">        new_tex</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>大部分和之前写的差不多，配置 manim 支持中文的方式有一点变化，主要是在于配置文件上。稍微提一下是怎么解决的：</p>
+<p>当时看文档注意到有 custom_config 这个类似自定义配置的东西，一开始按原来的方法想要修改<code>constant.py</code>来解决，发现没有这个文件了，然后猜测 3b1b 可能把这部分的东西放到了 custom_config 部分，然后去找默认的配置<code>default_config.yml</code> 查看配置，在其中看到了关于 tex 模板的配置，看到熟悉的<code>tex_template</code>，在其下方有关于切换到 ctex 的一些配置说明，根据提示修改就可以。</p>
+<p>再次推荐 3b1b 的 <a target="_blank" rel="noopener" href="https://3b1b.github.io/manim/">manim官方教程</a>🎉</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/36c1564c/" title="manim安装配置指北（二）">https://umm.js.org/p/36c1564c/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/manim/" rel="tag"># manim</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/b9afc11d/" rel="prev" title="移除“阅读全文”的限制">
+                  <i class="fa fa-angle-left"></i> 移除“阅读全文”的限制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/cfda3825/" rel="next" title="移除 CSDN 广告">
+                  移除 CSDN 广告 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">165k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
