@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="修改了一个基于Flask的青年大学习的截图生成器，生成类微信截图。然后将项目容器化，制作Dockerfile和docker-compose进行管理，通过Docker一键部署。 这玩意有什么用？还真没有，如果你知道青年大学习是什么，你就知道有（没）啥用，就当练手了。 重要的是，对Docker有了进一步的理解以及熟悉。项目地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 部署 Flask App">
+<meta property="og:url" content="https://umm.js.org/p/506553f1/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="修改了一个基于Flask的青年大学习的截图生成器，生成类微信截图。然后将项目容器化，制作Dockerfile和docker-compose进行管理，通过Docker一键部署。 这玩意有什么用？还真没有，如果你知道青年大学习是什么，你就知道有（没）啥用，就当练手了。 重要的是，对Docker有了进一步的理解以及熟悉。项目地址">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://umm.js.org/p/506553f1/head.jpg">
+<meta property="og:image" content="https://umm.js.org/p/506553f1/result.jpg">
+<meta property="og:image" content="https://umm.js.org/p/506553f1/docker.svg">
+<meta property="og:image" content="https://umm.js.org/p/506553f1/docker-portforward.svg">
+<meta property="article:published_time" content="2020-03-25T11:11:23.000Z">
+<meta property="article:modified_time" content="2023-01-22T06:32:23.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Docker Compose">
+<meta property="article:tag" content="Flask">
+<meta property="article:tag" content="Nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://umm.js.org/p/506553f1/head.jpg">
+
+
+<link rel="canonical" href="https://umm.js.org/p/506553f1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/506553f1/","path":"p/506553f1/","title":"Docker 部署 Flask App"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Docker 部署 Flask App | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#P%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">P图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">Docker部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99Dockerfile"><span class="nav-number">2.1.</span> <span class="nav-text">编写Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose"><span class="nav-number">2.2.</span> <span class="nav-text">docker-compose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">2.3.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">2.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx"><span class="nav-number">3.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker"><span class="nav-number">4.1.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask"><span class="nav-number">4.2.</span> <span class="nav-text">Flask</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#url-for"><span class="nav-number">4.2.1.</span> <span class="nav-text">url_for</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E7%BC%93%E5%AD%98"><span class="nav-number">4.2.2.</span> <span class="nav-text">静态资源缓存</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/506553f1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Docker 部署 Flask App | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker 部署 Flask App
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-25 19:11:23" itemprop="dateCreated datePublished" datetime="2020-03-25T19:11:23+08:00">2020-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-22 14:32:23" itemprop="dateModified" datetime="2023-01-22T14:32:23+08:00">2023-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/DevOps/" itemprop="url" rel="index"><span itemprop="name">DevOps</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>修改了一个基于Flask的青年大学习的截图生成器，生成类微信截图。然后将项目容器化，制作Dockerfile和docker-compose进行管理，通过Docker一键部署。</p>
+<p>这玩意有什么用？还真没有，如果你知道青年大学习是什么，你就知道有（没）啥用，就当练手了。</p>
+<p>重要的是，对Docker有了进一步的理解以及熟悉。<a target="_blank" rel="noopener" href="https://github.com/umm233/FuckQNDXX">项目地址</a></p>
+<span id="more"></span>
+
+<h2 id="P图"><a href="#P图" class="headerlink" title="P图"></a>P图</h2><p>这一步是将获得的学习结束截图，P成从微信里截图的样子，使用PIL绘制一个<code>head.jpg</code>，然后与原图进行拼接得到微信截图的样子。这里简略介绍以下PIL几个方法的使用：</p>
+<ul>
+<li><p>生成画布，学习结束图片的宽是828px，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里的三个参数分别是图片模式，画布大小，以及画布背景</span></span><br><span class="line">img = Image.new(<span class="string">&#x27;RGB&#x27;</span>, (<span class="number">828</span>, <span class="number">78</span>), (<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>绘制文本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里的font_type是指字体的路径</span></span><br><span class="line">font = ImageFont.truetype(font_type, <span class="number">28</span>)</span><br><span class="line">draw = ImageDraw.Draw(img)</span><br><span class="line"><span class="comment"># 图片添加文字，三个参数分别表示文本左上角的坐标（画布左上角为坐标原点）、文本内容、颜色和字体</span></span><br><span class="line">draw.text((<span class="number">60</span>, <span class="number">20</span>), title, color, font=font)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>保存图片</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img.save(<span class="string">&quot;./static/img/qndxx/head.jpg&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/p/506553f1/head.jpg" alt="head"></p>
+</li>
+<li><p>图片拼接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">绘制一个最终大小的画布</span><br><span class="line">merge_img = Image.new(<span class="string">&#x27;RGB&#x27;</span>, (size1[<span class="number">0</span>], size1[<span class="number">1</span>]+size2[<span class="number">1</span>]))</span><br><span class="line"><span class="comment"># 拼接坐标</span></span><br><span class="line">loc1, loc2 = (<span class="number">0</span>, <span class="number">0</span>), (<span class="number">0</span>, size1[<span class="number">1</span>])</span><br><span class="line"><span class="comment"># 将图片左上角对齐拼接坐标，粘贴</span></span><br><span class="line">merge_img.paste(img1, loc1)</span><br><span class="line">merge_img.paste(down_img, loc2)</span><br></pre></td></tr></table></figure>
+
+<p>这样子就生成了假的微信截图：</p>
+<p><img data-src="/p/506553f1/result.jpg"></p>
+</li>
+</ul>
+<h2 id="Docker部署"><a href="#Docker部署" class="headerlink" title="Docker部署"></a>Docker部署</h2><p>因为不可能一直本地打开运行，然后生成截图，所以丢一个在服务器上跑。</p>
+<p>然后怎么跑？学习了一波项目容器化。</p>
+<h3 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>Dockerfile像是一个脚本，里面编写好命令，然后容器创建的时候会根据步骤一步一步构建。通过Dockerfile可以实现自动化构建项目容器。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.7</span>-alpine AS build</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed -i <span class="string">&#x27;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#x27;</span> /etc/apk/repositories \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; apk update \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; apk add git gcc musl-dev libffi-dev openssl-dev make</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install --upgrade pip</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk --no-cache add git \</span></span><br><span class="line"><span class="language-bash">                       jpeg-dev \</span></span><br><span class="line"><span class="language-bash">                       zlib-dev \</span></span><br><span class="line"><span class="language-bash">                       freetype-dev \</span></span><br><span class="line"><span class="language-bash">                       lcms2-dev \</span></span><br><span class="line"><span class="language-bash">                       openjpeg-dev \</span></span><br><span class="line"><span class="language-bash">                       tiff-dev \</span></span><br><span class="line"><span class="language-bash">                       tk-dev \</span></span><br><span class="line"><span class="language-bash">                       tcl-dev \</span></span><br><span class="line"><span class="language-bash">                       harfbuzz-dev \</span></span><br><span class="line"><span class="language-bash">                       fribidi-dev</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> git <span class="built_in">clone</span> https://github.com/umm233/FuckQNDXX</span></span><br></pre></td></tr></table></figure>
+
+<p>这里解释以下每句话的作用：</p>
+<ul>
+<li><p>第1行的使用<code>python:3.7-alpine</code>镜像构建基础容器。</p>
+<p>这里为什么选择alpine版本的python容器？因为可以节省空间以及其体积小，使得构建过程更快。</p>
+<blockquote>
+<p><code>python:3.7-alpine</code> 是一个在 Alpine 系统下 Python3.7 镜像，<code>Alpine</code> 的优势是「系统的体积小」(系统镜像约 5 MB，而 Ubuntu 系列镜像接近 200 MB，可见一斑)、「运行时资源消耗低」和「提供包管理工具 <code>apk</code>，包管理机制完善」等。我是很推荐使用 Alpine 替代 Ubuntu 之类系统做为基础镜像环境的。</p>
+<p>– 参考<a target="_blank" rel="noopener" href="https://www.dongwm.com/post/use-docker-compose/">Python项目容器化实践(一) - Docker Compose</a></p>
+</blockquote>
+</li>
+<li><p>第2-4行是换源，修改 Alpine 使用国内中科大的源，加快软件下载速度。</p>
+</li>
+<li><p>第5行更新pip</p>
+</li>
+<li><p>第6-16行安装PIL依赖</p>
+</li>
+<li><p>第17行切换到&#x2F;app目录</p>
+</li>
+<li><p>第18行获取Python项目</p>
+</li>
+</ul>
+<h3 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h3><p>到这里基础环境基本配置好了，接下来在<code>docker-compose.yml</code>里对容器进一步配置。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">qndxx</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:35555:8888</span></span><br><span class="line">    <span class="comment"># volumes:</span></span><br><span class="line">    <span class="comment">#   - ./FuckQNDXX:/app/FuckQNDXX</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">sh</span> <span class="string">-c</span> <span class="string">&#x27;cd /app/FuckQNDXX &amp;&amp; pip install -i https://mirrors.ustc.edu.cn/pypi/web/simple -r requirements.txt &amp;&amp; python MainSever.py&#x27;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>第1行version是指compose文件格式的版本，理论上根据安装的Docker版本来选择。1、2、3是大版本，还是 minor 版本</p>
+</li>
+<li><p>第2行services，每个容器是一个服务，这里比较简单，这个web应用只有qndxx一个服务</p>
+</li>
+<li><p>第4行设置容器名称为qndxx</p>
+</li>
+<li><p>第5行是对当前目录里的Dockerfile进行构建</p>
+</li>
+<li><p>第6行设置端口映射，将容器里的8888端口映射到主机端口的35555上。这里添加<code>127.0.0.1</code>是为后面nginx反向代理做准备</p>
+</li>
+<li><p>第8-9行，volume是卷的意思，这里是挂载文件，将当前文件夹下的FuckQNDXX挂在到容器对应目录</p>
+<blockquote>
+<p>这里说明以下，这里将第8-9行注释了是因为一开始调试代码及测试，通过挂载方式比较方便，修改的内容可以实时更新到容器中，同时，Flask app开启debug模式就基本上实现了热部署</p>
+</blockquote>
+</li>
+<li><p>第10行是切换目录到项目，安装必要依赖（通过requirments.txt管理），然后启动该应用</p>
+</li>
+<li><p>第11行设置容器自动重启</p>
+</li>
+</ul>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>在当前目录运行<code>tree -L 1</code>查看目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── docker-compose.yml</span><br><span class="line">├── Dockerfile</span><br></pre></td></tr></table></figure>
+
+<p>执行以下命令，一键部署：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>配置好后，基本上一劳永逸，部署就是上面这么简单。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>docker有点像虚拟机，有独立的网络，进入容器后就行打开了一个新的环境。但在部署docker容器的过程中，体会到docker和虚拟机不一样的地方。相对来说，虚拟机可以说是持久的，而docker是临时的，可以删除，然后快速重建。</p>
+<p>在配置容器过程中，配置PIL的环境花了一番时间，因为一开始不知道PIL需要依赖，也不知道需要什么依赖，然后看<a target="_blank" rel="noopener" href="https://pillow.readthedocs.io/en/stable/installation.html">官方文档</a>里面说明了安装使用PIL的一些必要依赖：</p>
+<blockquote>
+<p>We provide binaries for Linux for each of the supported Python versions in the manylinux wheel format. These include support for all optional libraries except libimagequant. Raqm support requires libraqm, fribidi, and harfbuzz to be installed separately</p>
+<p>以及</p>
+<p>You <strong>do not need to install all supported external libraries</strong> to use Pillow’s basic features. <strong>Zlib</strong> and <strong>libjpeg</strong> are required by default.</p>
+<p><strong>以及（划重点）</strong></p>
+<p><strong>There are Dockerfiles in our <a target="_blank" rel="noopener" href="https://github.com/python-pillow/docker-images">Docker images repo</a> to install the dependencies for some operating systems.</strong></p>
+</blockquote>
+<p>在官方的镜像仓库找到alpine的构建PIL环境的Dockerfile，其中只需要PIL依赖部分：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pillow dependencies</span></span><br><span class="line">jpeg-dev \</span><br><span class="line">zlib-dev \</span><br><span class="line">freetype-dev \</span><br><span class="line">lcms2-dev \</span><br><span class="line">openjpeg-dev \</span><br><span class="line">tiff-dev \</span><br><span class="line">tk-dev \</span><br><span class="line">tcl-dev \</span><br><span class="line">harfbuzz-dev \</span><br><span class="line">fribidi-dev</span><br></pre></td></tr></table></figure>
+
+<p>通过这个反复折腾PIL环境的过程，体会到了Docker与虚拟机之间的区别😥。这个过程就像捏泥人，你可以捏到你想要的样子为止，Docker也是你可以调试到你满意为止，期间容器反复重建。<del>舍不得你就输了</del></p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>使用Nginx进行反向代理：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">qndxx &#123;</span></span><br><span class="line">    <span class="attr">server</span> <span class="string">127.0.0.1:35555; # 与之前docker-compose。yml里设置映射的主机端口对应</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="attr">listen</span> <span class="string">35553 ssl; # 监听35553端口，这里注意不要和上面upstream里的端口一样</span></span><br><span class="line">    <span class="attr">gzip</span> <span class="string">on;</span></span><br><span class="line">    <span class="attr">server_name</span>  <span class="string">your-own-domain:35553; # 修改为自己的域名</span></span><br><span class="line">    <span class="attr">access_log</span> <span class="string">/var/log/nginx/qndxx_access.log combined;</span></span><br><span class="line">    <span class="attr">error_log</span>  <span class="string">/var/log/nginx/qndxx_error.log;</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">location</span> <span class="string">/ &#123;</span></span><br><span class="line">        <span class="attr">proxy_redirect</span> <span class="string">off;</span></span><br><span class="line">        <span class="attr">proxy_pass</span> <span class="string">http://qndxx; # 设置代理服务器，请求发送到本地35553端口</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">proxy_set_header</span>  <span class="string">Host                $host;</span></span><br><span class="line">        <span class="attr">proxy_set_header</span>  <span class="string">X-Real-IP           $remote_addr;</span></span><br><span class="line">        <span class="attr">proxy_set_header</span>  <span class="string">X-Forwarded-Ssl     on;</span></span><br><span class="line">        <span class="attr">proxy_set_header</span>  <span class="string">X-Forwarded-For     $proxy_add_x_forwarded_for;</span></span><br><span class="line">        <span class="attr">proxy_set_header</span>  <span class="string">X-Forwarded-Proto   $scheme;</span></span><br><span class="line">        <span class="attr">proxy_set_header</span>  <span class="string">X-Frame-Options     SAMEORIGIN;</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">client_max_body_size</span>        <span class="string">100m;</span></span><br><span class="line">        <span class="attr">client_body_buffer_size</span>     <span class="string">128k;</span></span><br><span class="line"></span><br><span class="line">        <span class="attr">proxy_buffer_size</span>           <span class="string">4k;</span></span><br><span class="line">        <span class="attr">proxy_buffers</span>               <span class="string">4 32k;</span></span><br><span class="line">        <span class="attr">proxy_busy_buffers_size</span>     <span class="string">64k;</span></span><br><span class="line">        <span class="attr">proxy_temp_file_write_size</span>  <span class="string">64k;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个可以作为简单的Nginx的https模板使用，需要修改的地方也就是上面注释的地方。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>docker容器化对原应用进行一些修改，比如<code>MainServer.py</code>中的运行语句：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- app.run(host=&#x27;127.0.0.1&#x27;, port=8888, debug=True)</span></span><br><span class="line"><span class="addition">+ app.run(host=&#x27;0.0.0.0&#x27;, port=8888, debug=True)</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>127.0.0.1</code>，会导致<code>Connection refused</code>，修改成<code>0.0.0.0</code>监听使用对容器qndxx的8888端口所有请求即可。解释这个原因，可以看一下这篇文章<a target="_blank" rel="noopener" href="https://pythonspeed.com/articles/docker-connection-refused/">Connection refused? Docker networking and how it impacts your image</a>，这里把文章两个图拿过来简单解释下：</p>
+<blockquote>
+<p>服务器正在容器网络名称空间内监听127.0.0.1，但是端口转发将指向外部IP，即172.17.0.2。</p>
+</blockquote>
+<p>明明白白的解释了，服务端没有监听到来自172.17.0.2的端口请求</p>
+<img data-src="docker.svg" style="zoom:40%;" />
+
+<blockquote>
+<p>主机端口转发只能连接到一个目的地，但您可以更改服务器进程监听的位置。您可以通过监听0.0.0.0来实现这一点，这意味着监听所有接口。</p>
+</blockquote>
+<img data-src="docker-portforward.svg" style="zoom:40%;" />
+
+<h3 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h3><h4 id="url-for"><a href="#url-for" class="headerlink" title="url_for"></a>url_for</h4><p>着重讲一下其中<code>url_for</code>函数参数设置引发的问题。</p>
+<p><code>fake_pic.html</code>中图片显示原来是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;&#123;url_for</span> (&#x27;<span class="attr">.static</span>&#x27;, <span class="attr">filename</span>=<span class="string">pic_src,</span> <span class="attr">_external</span>=<span class="string">True)&#125;&#125;/</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>本地部署当然是没问题，但是使用了nginx，使用的是子域名（带端口）（<code>https://test.umm.js.org.com:35553</code>），启用<code>_external</code>的情况下会导致图片的地址中将端口设成80（<code>http://test.um.js.org</code>），使得显示图片失败。查了下<code>_external</code>的<a target="_blank" rel="noopener" href="https://flask.palletsprojects.com/en/1.1.x/api/?highlight=_external">相关文档</a>：</p>
+<blockquote>
+<ul>
+<li><strong>_external</strong> – if set to <code>True</code>, an absolute URL is generated. Server address can be changed via <code>SERVER_NAME</code> configuration variable which falls back to the Host header, then to the IP and port of the request.</li>
+</ul>
+</blockquote>
+<p>我重新设置了<code>SERVER_NAME</code>、<code>SERVER_PORT</code>和<code>PREFERRED_URL_SCHEME</code>，但是什么变化没看到。后来随手删了这个参数，居然正常了？还不是很明白为什么。</p>
+<h4 id="静态资源缓存"><a href="#静态资源缓存" class="headerlink" title="静态资源缓存"></a>静态资源缓存</h4><p>项目部署后，遇到静态资源缓存问题：</p>
+<blockquote>
+<p>通过服务器获取截图图片，当修改期数后，再次生成，浏览器中截图始终不变，但服务器中的最新生成的截图（<code>latest.jpg</code>）已经更新。</p>
+</blockquote>
+<p>这里涉及到 flask 设置的默认参数<code>SEND_FILE_MAX_AGE_DEFAULT</code>，也就是缓存的最大时间，默认是 12h，即 43200s。在浏览器中查看静态资源的<code>header</code>中<code>Cache-Control</code>，也就是缓存策略，默认应该显示的是<code>43200</code>。</p>
+<p>由于flask默认设置的缓存时间太长了，虽然我们重新发送请求来获取新的截图，但浏览器认为这个资源已存在（未过期），生成的页面也就仍使用之前缓存的图片，并未重新从浏览器获取、刷新图片，造成图片显示错误的问题。</p>
+<p>解决方法就是将<code>SEND_FILE_MAX_AGE_DEFAULT</code>参数设置小一点即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line">app.config[<span class="string">&#x27;SEND_FILE_MAX_AGE_DEFAULT&#x27;</span>] = timedelta(seconds=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>从Flask部署，到Dockerfille配置PIL环境，再到docker-compose管理以及Nginx反向代理，踩了很多坑，也学到了不少东西，理解了很多。实践出真知（<del>给我哭😭</del>）</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.dongwm.com/post/use-docker-compose/">Python项目容器化实践(一) - Docker Compose</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://pythonspeed.com/articles/docker-connection-refused/">Connection refused? Docker networking and how it impacts your image</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://flask.palletsprojects.com/en/1.1.x/api/?highlight=_external">Flask API 文档</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/506553f1/" title="Docker 部署 Flask App">https://umm.js.org/p/506553f1/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/DevOps/" rel="tag"># DevOps</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/Docker-Compose/" rel="tag"># Docker Compose</a>
+              <a href="/tags/Flask/" rel="tag"># Flask</a>
+              <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/aa85dc73/" rel="prev" title="Java 中 '==' 和 equals() 的理解">
+                  <i class="fa fa-angle-left"></i> Java 中 '==' 和 equals() 的理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/e1099939/" rel="next" title="Docker Compose部署Jupyter Notebook">
+                  Docker Compose部署Jupyter Notebook <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">166k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

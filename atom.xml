@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>三分之七橙</title>
+  
+  
+  <link href="https://umm.js.org/atom.xml" rel="self"/>
+  
+  <link href="https://umm.js.org/"/>
+  <updated>2025-02-27T13:50:20.000Z</updated>
+  <id>https://umm.js.org/</id>
+  
+  <author>
+    <name>Seeno</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>月记·2025.2</title>
+    <link href="https://umm.js.org/p/2258a936/"/>
+    <id>https://umm.js.org/p/2258a936/</id>
+    <published>2025-02-27T13:50:20.000Z</published>
+    <updated>2025-02-27T13:50:20.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;关于我两秒钟把路由器弄坏，花两小时修好这件事&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="日常" scheme="https://umm.js.org/categories/%E6%97%A5%E5%B8%B8/"/>
+    
+    
+    <category term="软路由" scheme="https://umm.js.org/tags/%E8%BD%AF%E8%B7%AF%E7%94%B1/"/>
+    
+    <category term="Realtek" scheme="https://umm.js.org/tags/Realtek/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo 升级 7.0.0</title>
+    <link href="https://umm.js.org/p/3f415d4f/"/>
+    <id>https://umm.js.org/p/3f415d4f/</id>
+    <published>2024-03-27T14:31:23.000Z</published>
+    <updated>2024-03-27T14:31:23.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;不知不觉，开博五六年了，最近翻一翻新，升级一下 Hexo 以及 NexT 主题&lt;/p&gt;
+&lt;p&gt;发现比想象的略微麻烦些，想象的是更新一下&lt;code&gt;package.json&lt;/code&gt;，GitHub Action 跑一下部署流程就好了，&lt;del&gt;结果折腾半天&lt;/del&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Hexo" scheme="https://umm.js.org/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://umm.js.org/tags/Hexo/"/>
+    
+    <category term="NexT" scheme="https://umm.js.org/tags/NexT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac App 推荐</title>
+    <link href="https://umm.js.org/p/503cf802/"/>
+    <id>https://umm.js.org/p/503cf802/</id>
+    <published>2024-03-26T12:24:08.000Z</published>
+    <updated>2024-03-26T12:24:08.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;日常环境切换到 Mac，发现好多有意思的app，配置也比 Windows 简单。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Tools" scheme="https://umm.js.org/categories/Tools/"/>
+    
+    
+    <category term="Tool" scheme="https://umm.js.org/tags/Tool/"/>
+    
+    <category term="App" scheme="https://umm.js.org/tags/App/"/>
+    
+    <category term="Mac" scheme="https://umm.js.org/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于 InnoDB 锁的那些事</title>
+    <link href="https://umm.js.org/p/f72c91a7/"/>
+    <id>https://umm.js.org/p/f72c91a7/</id>
+    <published>2023-06-18T13:27:20.000Z</published>
+    <updated>2023-06-18T13:27:20.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;阅读 MySQL 文档中关于 MySQL 锁的一些记录，包括锁的类型、不同语句持有锁的类型。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="MySQL" scheme="https://umm.js.org/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://umm.js.org/tags/MySQL/"/>
+    
+    <category term="Lock" scheme="https://umm.js.org/tags/Lock/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github SSH Key 泄露的影响</title>
+    <link href="https://umm.js.org/p/617eedb3/"/>
+    <id>https://umm.js.org/p/617eedb3/</id>
+    <published>2023-04-23T15:10:08.000Z</published>
+    <updated>2023-04-23T15:10:08.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;由于前段时间 Github 私钥泄露，Github 出于谨慎更换了密钥。这里简单谈谈对使用者的使用和解决办法。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="日常" scheme="https://umm.js.org/categories/%E6%97%A5%E5%B8%B8/"/>
+    
+    
+    <category term="Github" scheme="https://umm.js.org/tags/Github/"/>
+    
+    <category term="SSH" scheme="https://umm.js.org/tags/SSH/"/>
+    
+  </entry>
+  
+</feed>

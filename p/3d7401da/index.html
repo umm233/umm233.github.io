@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="RSS 上看到@printempw写了一篇使用 GitHub Actions 自动部署 Hexo 博客，感觉很方便。 配置自动化部署后，写完博客提交更新就自动部署，30s 左右就可以完成。顺便学习下 Github Action。 当然，究极原因还是“懒”啦">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Action 自动部署 Hexo 博客">
+<meta property="og:url" content="https://umm.js.org/p/3d7401da/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="RSS 上看到@printempw写了一篇使用 GitHub Actions 自动部署 Hexo 博客，感觉很方便。 配置自动化部署后，写完博客提交更新就自动部署，30s 左右就可以完成。顺便学习下 Github Action。 当然，究极原因还是“懒”啦">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://umm.js.org/p/3d7401da/hexo-blog-deploy-secret-setting.png">
+<meta property="og:image" content="https://umm.js.org/p/3d7401da/hexo-deploy-key-setting.png">
+<meta property="og:image" content="https://umm.js.org/p/3d7401da/deploy-action-result.png">
+<meta property="og:image" content="https://umm.js.org/p/3d7401da/action-detail.png">
+<meta property="article:published_time" content="2021-02-27T12:47:28.000Z">
+<meta property="article:modified_time" content="2025-03-02T07:22:15.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Github Action">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://umm.js.org/p/3d7401da/hexo-blog-deploy-secret-setting.png">
+
+
+<link rel="canonical" href="https://umm.js.org/p/3d7401da/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/3d7401da/","path":"p/3d7401da/","title":"Github Action 自动部署 Hexo 博客"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Github Action 自动部署 Hexo 博客 | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE"><span class="nav-number">1.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">博客配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%9A%E5%AE%A2%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">博客结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E9%83%A8%E7%BD%B2%E5%AF%86%E9%92%A5"><span class="nav-number">2.2.</span> <span class="nav-text">生成部署密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%83%A8%E7%BD%B2%E5%AF%86%E9%92%A5"><span class="nav-number">2.3.</span> <span class="nav-text">配置部署密钥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99-Workflow"><span class="nav-number">3.</span> <span class="nav-text">编写 Workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-%E7%89%88%E6%9C%AC"><span class="nav-number">4.1.</span> <span class="nav-text">Node.js 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-number">4.2.</span> <span class="nav-text">Git 身份认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pandoc-%E4%BE%9D%E8%B5%96"><span class="nav-number">4.3.</span> <span class="nav-text">pandoc 依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#abbrlink"><span class="nav-number">4.4.</span> <span class="nav-text">abbrlink</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E7%BB%93%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">部署结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/3d7401da/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Github Action 自动部署 Hexo 博客 | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Github Action 自动部署 Hexo 博客
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-02-27 20:47:28" itemprop="dateCreated datePublished" datetime="2021-02-27T20:47:28+08:00">2021-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-02 15:22:15" itemprop="dateModified" datetime="2025-03-02T15:22:15+08:00">2025-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>RSS 上看到<a target="_blank" rel="noopener" href="https://printempw.github.io/">@printempw</a>写了一篇<a target="_blank" rel="noopener" href="https://printempw.github.io/use-github-actions-to-deploy-hexo-blog">使用 GitHub Actions 自动部署 Hexo 博客</a>，感觉很方便。</p>
+<p>配置自动化部署后，写完博客提交更新就自动部署，30s 左右就可以完成。顺便学习下 Github Action。</p>
+<p><del>当然，究极原因还是“懒”啦</del></p>
+<span id="more"></span>
+
+<h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><div class="note warning"><p>最新的 Blog GitHub Action Workflow 参考 <a target="_blank" rel="noopener" href="https://github.com/umm233/Daily-Script/tree/master/blog/workflow">blog&#x2F;workflow</a></p>
+</div>
+
+<ul>
+<li><p>2025-03-02 fix <code>ReferenceError: ReadableStream is not defined</code></p>
+<blockquote>
+<p>升级 Node 版本解决</p>
+</blockquote>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- node-version: &#x27;16&#x27;</span></span><br><span class="line"><span class="addition">+ node-version: &#x27;20&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p>原来博客的部署方式是先清理缓存文件，生成并部署，然后同步博客源码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d &amp;&amp; hexo b</span><br></pre></td></tr></table></figure>
+
+<p>具体可参考之前写的 <a href="/p/cbef7cfa">Hexo 博客备份</a></p>
+<h2 id="博客配置"><a href="#博客配置" class="headerlink" title="博客配置"></a>博客配置</h2><h3 id="博客结构"><a href="#博客结构" class="headerlink" title="博客结构"></a>博客结构</h3><ul>
+<li><p><code>hexo-blog</code>: 存放博客源码</p>
+</li>
+<li><p><code>umm233.github.io</code>: Hexo 生成的静态博客页面</p>
+</li>
+</ul>
+<h3 id="生成部署密钥"><a href="#生成部署密钥" class="headerlink" title="生成部署密钥"></a>生成部署密钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -f hexo-deploy-key -C <span class="string">&quot;umm233.github.io&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>当前目录下会生成<code>hexo-deploy-key</code>和<code>hexo-deploy-key.pub</code> 两个文件。</p>
+<h3 id="配置部署密钥"><a href="#配置部署密钥" class="headerlink" title="配置部署密钥"></a>配置部署密钥</h3><ul>
+<li><p>在<code>hexo-blog</code>仓库<code>Settings -&gt; Secrets -&gt; Add a new secret</code>页面上添加一个新的<code>Secret</code>：</p>
+<ul>
+<li><p><code>Name</code>: DEPLOY_SECRET</p>
+</li>
+<li><p><code>Value</code>: <code>hexo-deploy-key</code>中的私钥</p>
+</li>
+</ul>
+<p><img data-src="/p/3d7401da/hexo-blog-deploy-secret-setting.png" alt="添加 hexo-blog-deploy-secret 设置"></p>
+</li>
+<li><p>在<code>umm233.github.io</code>仓库添加一个<code>Deploy keys</code></p>
+<ul>
+<li><p><code>Title</code>: hexo-deploy-key</p>
+</li>
+<li><p><code>Key</code>: 填入<code>hexo-deploy-key.pub</code>中的公钥内容，以<code>ssh-rsa</code>, <code>ssh-ed25519</code>, <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>, or <code>ecdsa-sha2-nistp521</code>开头的</p>
+</li>
+<li><p>勾选<code>Allow write access</code>选项，允许写入权限</p>
+</li>
+</ul>
+<p><img data-src="/p/3d7401da/hexo-deploy-key-setting.png" alt="添加 hexo-deploy-key 设置"></p>
+</li>
+</ul>
+<h2 id="编写-Workflow"><a href="#编写-Workflow" class="headerlink" title="编写 Workflow"></a>编写 Workflow</h2><p>直接在<code>hexo-blog</code>仓库下，点击<code>Action</code>，这会在仓库根目录下创建<code>.github/workflows/main.yml</code></p>
+<p>如果你的 Hexo 博客结构和我的类似，只需要修改下面的<code>GIT_USER</code>和<code>GIT_EMAIL</code>即可使用：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Hexo</span> <span class="string">Deploy</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只监听 source 分支的改动</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义环境变量</span></span><br><span class="line"><span class="attr">env:</span></span><br><span class="line">  <span class="attr">GIT_USER:</span> <span class="string">your</span> <span class="string">name</span></span><br><span class="line">  <span class="attr">GIT_EMAIL:</span> <span class="string">your</span> <span class="string">email</span> <span class="string">address</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="comment"># 获取博客源码和主题</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 这里用的是 Node.js 13.x，14.x 生成 Hexo 静态页面会有问题</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&#x27;13&#x27;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># 安装依赖</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm install</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="comment"># 从之前设置的 secret 获取部署私钥</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">SSH</span> <span class="string">Keys</span> <span class="string">and</span> <span class="string">known_hosts</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">DEPLOY_SECRET:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.DEPLOY_SECRET</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;</span></span><br><span class="line"><span class="string">          mkdir -p ~/.ssh</span></span><br><span class="line"><span class="string">          echo &quot;$DEPLOY_SECRET&quot; &gt; ~/.ssh/id_rsa</span></span><br><span class="line"><span class="string">          chmod 600 ~/.ssh/id_rsa</span></span><br><span class="line"><span class="string">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span></span><br><span class="line"><span class="string">          git config --global user.name $GIT_USER</span></span><br><span class="line"><span class="string">          git config --global user.email $GIT_EMAIL</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="comment"># 生成并部署 `npx hexo clean &amp;&amp; npx hexo g -d` or `npm run deploy`</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npx hexo clean &amp;&amp; npx hexo g -d</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">      <span class="comment"># 部署后更新博客源码，用于添加 abbrlink</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Update</span> <span class="string">Blog</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line">          <span class="string">sh</span> <span class="string">&quot;$&#123;GITHUB_WORKSPACE&#125;/.github/script/blog-update.sh&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="Node-js-版本"><a href="#Node-js-版本" class="headerlink" title="Node.js 版本"></a>Node.js 版本</h3><p><code>node-version: &#39;13&#39;</code>：@printempw 使用的是 14.x，而我在使用时发现 14.x 部署时会出现类似以下的错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError [ERR_INVALID_ARG_TYPE]: The &quot;mode&quot; argument must be integer. Received an instance of Object</span><br></pre></td></tr></table></figure>
+
+<p>我的hexo 版本是<code>5.0.2</code>仍会出现，应该是<code>Node.js</code>版本和<code>Hexo</code>不适配的原因，这边<code>Node.js</code>版本降到<code>13.x</code>解决</p>
+<h3 id="Git-身份认证"><a href="#Git-身份认证" class="headerlink" title="Git 身份认证"></a>Git 身份认证</h3><p>设置环境变量<code>GIT_USER</code>和<code>GIT_EMAIL</code>，用于 ssh 验证身份，否则会出现类似<code>Author identity unknown</code>的错误，解决方法是告诉git你是谁，后面在配置，密钥的时候配置用户名和电子邮件地址：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="variable">$GIT_USER</span></span><br><span class="line">git config --global user.email <span class="variable">$GIT_EMAIL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="pandoc-依赖"><a href="#pandoc-依赖" class="headerlink" title="pandoc 依赖"></a>pandoc 依赖</h3><p>如果使用了<code>mathjax</code>且 渲染引擎是<code>hexo-renderer-pandoc</code>，直接<code>npm install</code> 安装依赖，后面会出现以下错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: R][hexo-renderer-pandoc] On /home/runner/work/hexo-blog/hexo-blog/node_modules/hexo-theme-next/languages/README.md</span><br></pre></td></tr></table></figure>
+
+<p>原因是<code>hexo-renderer-pandoc</code>依赖了<code>pandoc</code>，在环境里未安装<code>pandoc</code>导致的解决方法有两个：</p>
+<ol>
+<li>安装<code>pandoc</code>，在<code>Install Dependencies</code>任务处添加<code>pandoc</code>依赖安装：</li>
+</ol>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/jgm/pandoc/releases/download/2.10.1/pandoc-2.10.1-1-amd64.deb</span><br><span class="line"><span class="built_in">sudo</span> dpkg -i pandoc-2.10.1-1-amd64.deb</span><br><span class="line">npm install hexo-renderer-pandoc --save  <span class="comment"># for mathjax</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改渲染引擎为原生的<code>hexo-renderer-marked</code>，通过修改<code>package.json</code>实现：</li>
+</ol>
+  <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- &quot;hexo-renderer-pandoc&quot;: &quot;^0.3.0&quot;,</span></span><br><span class="line"><span class="addition">+ &quot;hexo-renderer-marked&quot;: &quot;^3.0.0&quot;,</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="abbrlink"><a href="#abbrlink" class="headerlink" title="abbrlink"></a>abbrlink</h3><p>博客文章链接是在 Hexo 生成静态页面时自动生成的，生成后未更新到博客源码。所以需要加一个任务，用于部署后 push 到源码分支<code>hexo-blog</code>。</p>
+<p>最先我是直接添加更改，提交，推送到 Github:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Update</span> <span class="string">Blog</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    git add .</span></span><br><span class="line"><span class="string">    git commit -m &quot;update blog by Github Action&quot;</span></span><br><span class="line"><span class="string">    git push origin master</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这样会有一个问题，当生成静态页面后，源码没有任何变化的时候，提交的时候就会出现问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nothing to commit, working tree clean</span><br><span class="line">Error: Process completed with exit code 1.</span><br></pre></td></tr></table></figure>
+
+<p>后面就想有没有检查是否有更改，有的话才进行推送。然后在<a target="_blank" rel="noopener" href="https://blog.yrpang.com/posts/43978">使用shell脚本判断git状态</a>文中找到了一种解决方法，作者也遇到了类似的问题。</p>
+<blockquote>
+<p>通过<code>git status --porcelain</code>检查文件是否有修改，整理成<code>blog-update.sh</code>，存放在<code>.github/script</code>，内容如下：</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="subst">$(git status --porcelain)</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;nothing to update.&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    git add .</span><br><span class="line">    git commit -m <span class="string">&quot;triggle by commit <span class="variable">$&#123;GITHUB_SHA&#125;</span>&quot;</span> -a</span><br><span class="line">    git push origin master</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="部署结果"><a href="#部署结果" class="headerlink" title="部署结果"></a>部署结果</h2><p>写完文章，同步到<code>hexo-blog</code>分支后就触发Github Action 自动部署博客，整个过程耗时在 30s 以内😃🎉</p>
+<p><img data-src="/p/3d7401da/deploy-action-result.png" alt="构建概览"></p>
+<p><img data-src="/p/3d7401da/action-detail.png" alt="构建详情"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://printempw.github.io/use-github-actions-to-deploy-hexo-blog">使用 GitHub Actions 自动部署 Hexo 博客</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://sanonz.github.io/2020/deploy-a-hexo-blog-from-github-actions">利用 Github Actions 自动部署 Hexo 博客</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://frostming.com/2020/04-26/github-actions-deploy">使用 GitHub Actions 实现博客自动化部署</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.yrpang.com/posts/43978">使用shell脚本判断git状态</a></p>
+</li>
+</ul>
+<blockquote class="blockquote-center">
+<p>吴孟达走了<br>– 2021.02.27</p>
+
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/3d7401da/" title="Github Action 自动部署 Hexo 博客">https://umm.js.org/p/3d7401da/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/Github-Action/" rel="tag"># Github Action</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/f16cb4e6/" rel="prev" title="Re0 JNI Study">
+                  <i class="fa fa-angle-left"></i> Re0 JNI Study
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/1d1d49e9/" rel="next" title="Hexo Gitalk 403">
+                  Hexo Gitalk 403 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">166k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
