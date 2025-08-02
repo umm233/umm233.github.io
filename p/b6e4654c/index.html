@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录下使用 IDEA 的配置、插件以及一些实用小技巧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA 个人使用配置">
+<meta property="og:url" content="https://umm.js.org/p/b6e4654c/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="记录下使用 IDEA 的配置、插件以及一些实用小技巧">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.stack.imgur.com/3gQAI.png">
+<meta property="og:image" content="https://plugins.jetbrains.com/files/7275/screenshot_16821.png">
+<meta property="og:image" content="https://plugins.jetbrains.com/files/7654/screenshot_15729.png">
+<meta property="og:image" content="https://plugins.jetbrains.com/files/12178/screenshot_19448.png">
+<meta property="og:image" content="https://plugins.jetbrains.com/files/8579/screenshot_18932.png">
+<meta property="og:image" content="https://plugins.jetbrains.com/files/7425/screenshot_18534.png">
+<meta property="og:image" content="https://plugins.jetbrains.com/files/10292/screenshot_17679.png">
+<meta property="article:published_time" content="2021-05-09T07:31:08.000Z">
+<meta property="article:modified_time" content="2021-05-09T07:31:08.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="IDEA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.stack.imgur.com/3gQAI.png">
+
+
+<link rel="canonical" href="https://umm.js.org/p/b6e4654c/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/b6e4654c/","path":"p/b6e4654c/","title":"IDEA 个人使用配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>IDEA 个人使用配置 | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E6%B3%A8%E9%87%8A%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">行注释设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">2.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML"><span class="nav-number">2.2.</span> <span class="nav-text">XML</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%A4%B4%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">设置添加文件头信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%BC%95%E5%85%A5%E5%8C%85"><span class="nav-number">4.</span> <span class="nav-text">自动引入包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9C%AB%E5%B0%BE%E6%B7%BB%E5%8A%A0%E7%A9%BA%E7%99%BD%E8%A1%8C"><span class="nav-number">5.</span> <span class="nav-text">文件末尾添加空白行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%BB%E9%99%A4%E8%A1%8C%E5%B0%BE%E5%A4%9A%E4%BD%99%E7%A9%BA%E6%A0%BC"><span class="nav-number">6.</span> <span class="nav-text">去除行尾多余空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA-Keymap"><span class="nav-number">7.</span> <span class="nav-text">IDEA Keymap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA-Plugins"><span class="nav-number">8.</span> <span class="nav-text">IDEA Plugins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ignore"><span class="nav-number">8.1.</span> <span class="nav-text">.ignore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alibaba-Java-Coding-Guidelines"><span class="nav-number">8.2.</span> <span class="nav-text">Alibaba Java Coding Guidelines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BackgroundImage"><span class="nav-number">8.3.</span> <span class="nav-text">BackgroundImage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CheckStyle-IDEA"><span class="nav-number">8.4.</span> <span class="nav-text">CheckStyle-IDEA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CodeGlance"><span class="nav-number">8.5.</span> <span class="nav-text">CodeGlance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Free-MyBatis-plugin"><span class="nav-number">8.6.</span> <span class="nav-text">Free MyBatis plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GenerateAllSetter"><span class="nav-number">8.7.</span> <span class="nav-text">GenerateAllSetter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#google-java-format"><span class="nav-number">8.8.</span> <span class="nav-text">google-java-format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grep-Console"><span class="nav-number">8.9.</span> <span class="nav-text">Grep Console</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GsonFormat"><span class="nav-number">8.10.</span> <span class="nav-text">GsonFormat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lombok"><span class="nav-number">8.11.</span> <span class="nav-text">Lombok</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven-Helper"><span class="nav-number">8.12.</span> <span class="nav-text">Maven Helper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MetricsReloaded"><span class="nav-number">8.13.</span> <span class="nav-text">MetricsReloaded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nyan-Progress-Bar"><span class="nav-number">8.14.</span> <span class="nav-text">Nyan Progress Bar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#One-Dark-theme"><span class="nav-number">8.15.</span> <span class="nav-text">One Dark theme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SequenceDiagram"><span class="nav-number">8.16.</span> <span class="nav-text">SequenceDiagram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpotBugs"><span class="nav-number">8.17.</span> <span class="nav-text">SpotBugs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-Manipulation"><span class="nav-number">8.18.</span> <span class="nav-text">String Manipulation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Translation"><span class="nav-number">8.19.</span> <span class="nav-text">Translation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WakaTime"><span class="nav-number">8.20.</span> <span class="nav-text">WakaTime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestfulToolkit"><span class="nav-number">8.21.</span> <span class="nav-text">RestfulToolkit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA-Code-Tip"><span class="nav-number">9.</span> <span class="nav-text">IDEA Code Tip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E9%97%AE%E9%A2%98"><span class="nav-number">10.</span> <span class="nav-text">小问题</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">99</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/b6e4654c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="IDEA 个人使用配置 | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IDEA 个人使用配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-09 15:31:08" itemprop="dateCreated datePublished" datetime="2021-05-09T15:31:08+08:00">2021-05-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tools/" itemprop="url" rel="index"><span itemprop="name">Tools</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>记录下使用 IDEA 的配置、插件以及一些实用小技巧</p>
+<span id="more"></span>
+
+<h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><ol>
+<li><p>修改字体</p>
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; Font</code></li>
+<li>修改字体为<code>JetBrains Mono</code>，大小修改为 16</li>
+</ul>
+</li>
+<li><p>代码提示不区分大小写</p>
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General -&gt; Code Completion </code></li>
+<li>取消勾选<code>Match case</code><ul>
+<li>旧版本：进入<code>File -&gt; Settings -&gt; Editor -&gt; General -&gt; Code Completion </code>中，将右侧的<code>case sensitive completion</code>修改为<code>NONE</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>编辑代码在方法之间加入一条分隔线</p>
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General -&gt; Appearance</code>勾选<code>Show method separators</code></li>
+</ul>
+</li>
+<li><p>显示空格</p>
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General -&gt; Appearance</code>勾选<code>Show whitespaces</code></li>
+</ul>
+</li>
+<li><p>配置控制台中信息自动换行</p>
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General -&gt; Console</code>，勾选<code>Use soft wraps in console</code></li>
+</ul>
+</li>
+<li><p>启用滚轮缩放字体大小</p>
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General</code>，勾选<code>Change font size(Zoom) with Ctrl + Mouse Wheel</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="行注释设置"><a href="#行注释设置" class="headerlink" title="行注释设置"></a>行注释设置</h2><h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><p>第一行是默认配置的效果，第二行是修改后的</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- //     System.out.println(&quot;&quot;);</span></span><br><span class="line"><span class="addition">+ 	  // System.out.println(&quot;&quot;);</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; Code Style -&gt; Java</code></li>
+<li>在右边选择 <code>Code Generation</code>的 Tab</li>
+<li>在<code>Comment Code</code>中，把 <code>Line comment at first column</code>和<code>Block comment at first column</code>前的复选框去掉</li>
+<li>勾选上<code>Add a space at comment start</code></li>
+</ul>
+<blockquote>
+<p>参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18821275/intellij-comment-format">Intellij comment format</a></p>
+</blockquote>
+<p><img data-src="https://i.stack.imgur.com/3gQAI.png"></p>
+<h3 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h3><p>第一行是默认配置的效果，第二行是修改后的</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="addition">+ &lt;!--    test--&gt;</span></span><br><span class="line"><span class="deletion">-     &lt;!--test--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; Code Style -&gt; XML</code></li>
+<li>在右边选择 <code>Code Generation</code>的 Tab</li>
+<li>在<code>Comment Code</code>中，把 <code>Line comment at first column</code>和<code>Block comment at first column</code>前的复选框去掉</li>
+</ul>
+<h2 id="设置添加文件头信息"><a href="#设置添加文件头信息" class="headerlink" title="设置添加文件头信息"></a>设置添加文件头信息</h2><p>在 Java 文件中自动添加作者、时间等信息</p>
+<ul>
+<li><p>进入<code>File -&gt; Settings -&gt; Editor -&gt; File and Code Templates</code>中，找到<code>includes</code>，修改<code>File Header</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> umm</span></span><br><span class="line"><span class="comment">* <span class="doctag">@date</span> $&#123;DATE&#125; $&#123;TIME&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建 Java 文件，效果如下，自动在类上添加了作者和时间信息：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> umm</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021/5/9 20:53</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="自动引入包"><a href="#自动引入包" class="headerlink" title="自动引入包"></a>自动引入包</h2><ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General -&gt; Auto Import </code></li>
+<li>勾选<code>Add unambigious imports on the fly</code>（动态引入明确的 import项）</li>
+<li>勾选<code>Optimize import on the fly</code>（自动调整或者删除不使用的 import 项）</li>
+</ul>
+<h2 id="文件末尾添加空白行"><a href="#文件末尾添加空白行" class="headerlink" title="文件末尾添加空白行"></a>文件末尾添加空白行</h2><ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General</code></li>
+<li>在<code>On Save</code>中勾选<code>Ensure every saved file ends with a line break</code></li>
+</ul>
+<h2 id="去除行尾多余空格"><a href="#去除行尾多余空格" class="headerlink" title="去除行尾多余空格"></a>去除行尾多余空格</h2><ul>
+<li>进入<code>File -&gt; Settings -&gt; Editor -&gt; General</code></li>
+<li>在<code>On Save</code>中勾选<code>Remove trailing blank lines at the end of saved files</code></li>
+</ul>
+<h2 id="IDEA-Keymap"><a href="#IDEA-Keymap" class="headerlink" title="IDEA Keymap"></a>IDEA Keymap</h2><ol start="0">
+<li>遇到问题，查看解决办法 <code>alt + enter</code></li>
+<li>折叠代码 <code>ctrl + shift + -</code></li>
+<li>展开代码 <code>ctrl + shift + =</code></li>
+<li>查找类 <code>ctrl + n</code></li>
+<li>查找接口的实现类 <code>ctrl + shift + b</code></li>
+<li>查看类或接口的继承关系 <code>ctrl + h</code></li>
+<li>注释代码块 <code>ctrl + shift + /</code></li>
+<li>注释代码 <code>ctrl + /</code></li>
+<li>复制光标所在行&#x2F;复制选择内容，并把复制内容插入光标位置下面 <code>ctrl + d</code></li>
+<li>在当前文件进行文本查找 <code>ctrl + f</code></li>
+<li>方法参数提示显示 <code>ctrl + p</code></li>
+<li>显示generate <code>alt + insert</code></li>
+<li>显示类可重写的方法 <code>ctrl + o</code></li>
+<li>格式化代码 <code>ctrl+alt+L</code></li>
+<li>重新显示代码提示： <code>ctrl+space</code></li>
+<li>显示对象类型：选中对象， <code>ctrl + shift + p</code></li>
+<li>选中相同的字符串：<code>alt + j</code></li>
+<li>上下移动光标所在行：<code>ctrl + shift + ↑/↓</code></li>
+</ol>
+<h2 id="IDEA-Plugins"><a href="#IDEA-Plugins" class="headerlink" title="IDEA Plugins"></a>IDEA Plugins</h2><p>具体插件描述可以查看插件对应的主页</p>
+<h3 id="ignore"><a href="#ignore" class="headerlink" title=".ignore"></a>.ignore</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7495--ignore">.ignore - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>用于版本管理时设置忽略文件的</p>
+</blockquote>
+<h3 id="Alibaba-Java-Coding-Guidelines"><a href="#Alibaba-Java-Coding-Guidelines" class="headerlink" title="Alibaba Java Coding Guidelines"></a>Alibaba Java Coding Guidelines</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines">Alibaba Java Coding Guidelines - IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>用于检测代码规范</p>
+</blockquote>
+<h3 id="BackgroundImage"><a href="#BackgroundImage" class="headerlink" title="BackgroundImage"></a>BackgroundImage</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/72-backgroundimage">BackgroundImage - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>设置 IDE 透明背景</p>
+</blockquote>
+<h3 id="CheckStyle-IDEA"><a href="#CheckStyle-IDEA" class="headerlink" title="CheckStyle-IDEA"></a>CheckStyle-IDEA</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/1065-checkstyle-idea">CheckStyle-IDEA - plugin for IntelliJ IDEA and Android Studio | JetBrains</a></p>
+<blockquote>
+<p>检测代码规范</p>
+</blockquote>
+<h3 id="CodeGlance"><a href="#CodeGlance" class="headerlink" title="CodeGlance"></a>CodeGlance</h3><blockquote>
+<p>类似 Sublime Text 的右侧代码小地图</p>
+<p>显示&#x2F;隐藏的快捷键：ctrl+shift+g</p>
+</blockquote>
+<p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7275-codeglance">CodeGlance - plugin for IntelliJ IDEs | JetBrains</a></p>
+<p><img data-src="https://plugins.jetbrains.com/files/7275/screenshot_16821.png"></p>
+<h3 id="Free-MyBatis-plugin"><a href="#Free-MyBatis-plugin" class="headerlink" title="Free MyBatis plugin"></a>Free MyBatis plugin</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8321-free-mybatis-plugin">Free MyBatis plugin - IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>增强 idea 对 mybatis 支持的插件，主要功能如下：</p>
+<ul>
+<li>生成 mapper xml 文件</li>
+<li>快速从代码跳转到 mapper 及从 mapper 返回代码</li>
+<li>mybatis 自动补全及语法错误提示</li>
+<li>集成 mybatis generator gui 界面</li>
+<li>根据数据库注解，生成 swagger model 注解</li>
+</ul>
+</blockquote>
+<h3 id="GenerateAllSetter"><a href="#GenerateAllSetter" class="headerlink" title="GenerateAllSetter"></a>GenerateAllSetter</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/9360-generateallsetter">GenerateAllSetter - plugin for IntelliJ IDEA and Android Studio | JetBrains</a></p>
+<blockquote>
+<p>一键调用一个对象的所有的 set 方法</p>
+<p>快捷键：alt+enter</p>
+<p>使用可参考：<a target="_blank" rel="noopener" href="https://github.com/gejun123456/intellij-generateAllSetMethod">gejun123456&#x2F;intellij-generateAllSetMethod</a></p>
+</blockquote>
+<h3 id="google-java-format"><a href="#google-java-format" class="headerlink" title="google-java-format"></a>google-java-format</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8527-google-java-format">google-java-format - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>Google Java 代码规范</p>
+</blockquote>
+<h3 id="Grep-Console"><a href="#Grep-Console" class="headerlink" title="Grep Console"></a>Grep Console</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7125-grep-console">Grep Console - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>优化控制台输出显示及使用</p>
+</blockquote>
+<h3 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a>GsonFormat</h3><blockquote>
+<p>根据Gson库使用的要求，将JSONObject格式的String 解析成实体</p>
+<p>快捷键：alt+s</p>
+<p>具体使用可参考：<a target="_blank" rel="noopener" href="https://github.com/zzz40500/GsonFormat">zzz40500&#x2F;GsonFormat</a></p>
+</blockquote>
+<p><img data-src="https://plugins.jetbrains.com/files/7654/screenshot_15729.png"></p>
+<h3 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/6317-lombok">Lombok - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>Provides support for lombok annotations to write great Java code with IntelliJ IDEA.</p>
+</blockquote>
+<h3 id="Maven-Helper"><a href="#Maven-Helper" class="headerlink" title="Maven Helper"></a>Maven Helper</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7179-maven-helper">Maven Helper - plugin for IntelliJ IDEA | JetBrains</a></p>
+<blockquote>
+<p>用于检测并快捷修复依赖冲突，检测出有冲突的依赖将其 exclude</p>
+</blockquote>
+<h3 id="MetricsReloaded"><a href="#MetricsReloaded" class="headerlink" title="MetricsReloaded"></a>MetricsReloaded</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/93-metricsreloaded">MetricsReloaded - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>计算程序圈复杂度（Cyclomatic Complexity）</p>
+<p>圈复杂度越高，代码越难维护</p>
+</blockquote>
+<h3 id="Nyan-Progress-Bar"><a href="#Nyan-Progress-Bar" class="headerlink" title="Nyan Progress Bar"></a>Nyan Progress Bar</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8575-nyan-progress-bar">Nyan Progress Bar - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>Pretty progress bars with nyan cat for IJ based IDEs.</p>
+<p>加载时的进度条变成可爱的猫咪</p>
+</blockquote>
+<h3 id="One-Dark-theme"><a href="#One-Dark-theme" class="headerlink" title="One Dark theme"></a>One Dark theme</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/12178-atom-onedark-theme">Atom OneDark Theme - theme for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>暗黑代码主题</p>
+</blockquote>
+<p><img data-src="https://plugins.jetbrains.com/files/12178/screenshot_19448.png"></p>
+<h3 id="SequenceDiagram"><a href="#SequenceDiagram" class="headerlink" title="SequenceDiagram"></a>SequenceDiagram</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8286-sequencediagram">SequenceDiagram - plugin for IntelliJ IDEA and Android Studio | JetBrains</a></p>
+<blockquote>
+<p>生成程序时序图</p>
+</blockquote>
+<h3 id="SpotBugs"><a href="#SpotBugs" class="headerlink" title="SpotBugs"></a>SpotBugs</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/14014-spotbugs">SpotBugs - plugin for IntelliJ IDEA | JetBrains</a></p>
+<blockquote>
+<p>FindBugs 替代品，检测代码问题及规范</p>
+</blockquote>
+<h3 id="String-Manipulation"><a href="#String-Manipulation" class="headerlink" title="String Manipulation"></a>String Manipulation</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/2162-string-manipulation">String Manipulation - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>Case switching, sorting, filtering, incrementing, aligning to columns, grepping, escaping, encoding…</p>
+</blockquote>
+<h3 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8579-translation">Translation - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>翻译插件</p>
+</blockquote>
+<p><img data-src="https://plugins.jetbrains.com/files/8579/screenshot_18932.png"></p>
+<h3 id="WakaTime"><a href="#WakaTime" class="headerlink" title="WakaTime"></a>WakaTime</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7425-wakatime">WakaTime - plugin for IntelliJ IDEs | JetBrains</a></p>
+<blockquote>
+<p>Metrics, insights, and time tracking automatically generated from your programming activity.</p>
+</blockquote>
+<p><img data-src="https://plugins.jetbrains.com/files/7425/screenshot_18534.png"></p>
+<h3 id="RestfulToolkit"><a href="#RestfulToolkit" class="headerlink" title="RestfulToolkit"></a>RestfulToolkit</h3><p>plugin homepage: <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10292-restfultoolkit">RestfulToolkit - plugin for IntelliJ IDEA | JetBrains</a></p>
+<blockquote>
+<p>A toolkit for RESTful services development.</p>
+</blockquote>
+<p><img data-src="https://plugins.jetbrains.com/files/10292/screenshot_17679.png"></p>
+<h2 id="IDEA-Code-Tip"><a href="#IDEA-Code-Tip" class="headerlink" title="IDEA Code Tip"></a>IDEA Code Tip</h2><ul>
+<li><p>for 循环快捷生成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; l1 = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// l1.for</span></span><br><span class="line"><span class="keyword">for</span> (String s : l1) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// l1.fori</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">0</span>; i1 &lt; l1.size(); i1++) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// l1.forr</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> l1.size() - <span class="number">1</span>; i1 &gt;= <span class="number">0</span>; i1--) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>快捷定义变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// new String().var</span></span><br><span class="line"><span class="keyword">final</span> <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>null 判空</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// s.null</span></span><br><span class="line"><span class="keyword">if</span> (s == <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>notnull 判非空</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// s.notnull</span></span><br><span class="line"><span class="keyword">if</span> (s != <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nn 判非空</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// s.nn</span></span><br><span class="line"><span class="keyword">if</span> (s != <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>cast 强转</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// s.cast</span></span><br><span class="line">((String) s)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>not 取反</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">isApp</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// isApp.not</span></span><br><span class="line">!isApp</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="小问题"><a href="#小问题" class="headerlink" title="小问题"></a>小问题</h2><ul>
+<li>使用过程中遇到光标变成块状，进入<code>File -&gt; Settings -&gt; Editor -&gt; Gnenral -&gt; Appearence</code>，取消勾选<code>Use block caret</code></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/b6e4654c/" title="IDEA 个人使用配置">https://umm.js.org/p/b6e4654c/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Tool/" rel="tag"># Tool</a>
+              <a href="/tags/IDEA/" rel="tag"># IDEA</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/1d1d49e9/" rel="prev" title="Hexo Gitalk 403">
+                  <i class="fa fa-angle-left"></i> Hexo Gitalk 403
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/b9afc11d/" rel="next" title="移除“阅读全文”的限制">
+                  移除“阅读全文”的限制 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">169k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

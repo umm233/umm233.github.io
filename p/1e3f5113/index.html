@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="捡起之前想做的图片拼接：刚学Python的时候一个图，将各种图拼起来做成特定的形状，觉得很酷然后刚开始各种百度图片拼接程序，未果。这两天闲下来就想动动手，想给做出来。然后经过一番挣扎，有点丑的做出来了😂效果图如下：(最好模板图片背景是白色的)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PIL实现图片拼接">
+<meta property="og:url" content="https://umm.js.org/p/1e3f5113/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="捡起之前想做的图片拼接：刚学Python的时候一个图，将各种图拼起来做成特定的形状，觉得很酷然后刚开始各种百度图片拼接程序，未果。这两天闲下来就想动动手，想给做出来。然后经过一番挣扎，有点丑的做出来了😂效果图如下：(最好模板图片背景是白色的)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://umm.js.org/p/1e3f5113/pintu.png">
+<meta property="article:published_time" content="2018-11-22T04:58:41.000Z">
+<meta property="article:modified_time" content="2018-11-22T04:58:41.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Image">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://umm.js.org/p/1e3f5113/pintu.png">
+
+
+<link rel="canonical" href="https://umm.js.org/p/1e3f5113/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/1e3f5113/","path":"p/1e3f5113/","title":"PIL实现图片拼接"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>PIL实现图片拼接 | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">具体实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%AF%BB%E5%8F%96%E5%9B%BE%E7%89%87%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%E5%8F%8A%E6%94%B9%E5%8F%98%E5%83%8F%E7%B4%A0%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">1. 读取图片基本信息及改变像素模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AF%BB%E5%8F%96%E6%A8%A1%E6%9D%BF%E5%9B%BE%E7%89%87%E5%83%8F%E7%B4%A0%E5%80%BC%E5%AD%98%E5%85%A5%E6%95%B0%E7%BB%84"><span class="nav-number">2.2.</span> <span class="nav-text">2. 读取模板图片像素值存入数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%9B%BE%E7%89%87%E6%8B%BC%E6%8E%A5"><span class="nav-number">2.3.</span> <span class="nav-text">3. 图片拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%85%E4%BC%98%E5%8C%96"><span class="nav-number">2.4.</span> <span class="nav-text">待优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">99</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/1e3f5113/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="PIL实现图片拼接 | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PIL实现图片拼接
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-22 12:58:41" itemprop="dateCreated datePublished" datetime="2018-11-22T12:58:41+08:00">2018-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>捡起之前想做的图片拼接：刚学Python的时候一个图，将各种图拼起来做成特定的形状，觉得很酷<del>然后刚开始各种百度图片拼接程序</del>，未果。这两天闲下来就想动动手，想给做出来。<br>然后经过一番挣扎，有点丑的做出来了😂<br>效果图如下：(最好模板图片背景是白色的)</p>
+<span id="more"></span>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><blockquote>
+<p>将像素点“替换”成图片，设置一个灰度值作为阈值来选择要替换成图片的像素点，然后再新建图里将图片粘贴上去。</p>
+</blockquote>
+<p>PS.思路就是这么简单粗暴</p>
+<h2 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a>具体实现：</h2><h3 id="1-读取图片基本信息及改变像素模式"><a href="#1-读取图片基本信息及改变像素模式" class="headerlink" title="1. 读取图片基本信息及改变像素模式"></a><strong>1. 读取图片基本信息及改变像素模式</strong></h3><pre><code>    modelImg = Image.open(model_path) # 模板图片
+    im1 = modelImg.resize((500,500)) # 重设modelImg的尺寸
+    print(&quot;修改后模板图像尺寸为: &quot;,im1.size)
+    width,height = im1.size # 模板图片尺寸
+</code></pre>
+<blockquote>
+<p>刚开始对图像没有什么概念，后来发现一共有九种不同的像素模式，分别是 1，L，P，RGB，RGBA，CMYK，YCbCr，I，F。</p>
+</blockquote>
+<p>这里简单起见就选择 <code>L</code> 模式</p>
+<blockquote>
+<p>模式“L”为灰色图像，它的每个像素用8个bit表示，0表示黑，255表示白，其他数字表示不同的灰度。</p>
+</blockquote>
+<p><strong>将图片像素格式统一转换成灰度值，方面后面阈值操作。</strong></p>
+<p>这是一个坑，不同的图片如果直接利用<code>Image</code>库里的<code>getpixel</code>函数就会出现有的时候返回的是RGB,RGBA,P或者L的，每次的像素格式都不一样，传参都麻烦起来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">im = im1.convert(<span class="string">&quot;L&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-读取模板图片像素值存入数组"><a href="#2-读取模板图片像素值存入数组" class="headerlink" title="2. 读取模板图片像素值存入数组"></a><strong>2. 读取模板图片像素值存入数组</strong></h3><blockquote>
+<p>这一步在改变模式后就很容易实现了。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">openModel</span>(<span class="params">model_path</span>):</span><br><span class="line">    modelImg = Image.<span class="built_in">open</span>(model_path)</span><br><span class="line">    im1 = modelImg.resize((<span class="number">500</span>,<span class="number">500</span>)) <span class="comment"># 重设模板图片的尺寸，为了避免最后成图顺序出错</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;修改图像尺寸为: &quot;</span>,im1.size)</span><br><span class="line">    width,height = im1.size <span class="comment"># 修改后的图片尺寸</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 修改图像模式为:</span></span><br><span class="line">    im = im1.convert(<span class="string">&quot;L&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;修改图像模式为: &quot;</span>,im.mode)</span><br><span class="line">    <span class="comment"># 读取像素值</span></span><br><span class="line">    array = [] <span class="comment"># 存放像素值的列表</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 优化一下采集方式，不是每个点都要采集</span></span><br><span class="line">    <span class="comment"># 否则一张100x100的图片，拼接50x50的图片之后的大小会是5000x5000</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, width, <span class="number">10</span>):</span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, height, <span class="number">10</span>):</span><br><span class="line">            pixel = im.getpixel((x,y)) <span class="comment"># 读取像素点灰度值</span></span><br><span class="line">            array.append(pixel)</span><br><span class="line">    <span class="comment"># print(array)</span></span><br><span class="line">    <span class="comment"># print(len(array))</span></span><br><span class="line">    <span class="keyword">return</span> array</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-图片拼接"><a href="#3-图片拼接" class="headerlink" title="3. 图片拼接"></a><strong>3. 图片拼接</strong></h3><p>之前的步骤弄好之后，开始拼接，<code>if</code>语句根据设置的阈值简单判断一下，哪些点是要用图片替代的，然后转换成新图相应的坐标，将图片拼接上去就完成了。时间关系，许多地方就没有考虑太仔细，没去做优化。<del>要考试复习，对我现在就是在浪🙃</del></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    model_path = getImgPath(<span class="number">0</span>)[<span class="number">1</span>]</span><br><span class="line">    <span class="built_in">print</span>(model_path)</span><br><span class="line">    <span class="comment"># 新建画布</span></span><br><span class="line">    imnew = Image.new(<span class="string">&quot;RGB&quot;</span>, (<span class="number">2500</span>,<span class="number">2500</span>),<span class="string">&quot;#FFFFFF&quot;</span>)</span><br><span class="line">    piclen = <span class="number">1654</span> <span class="comment"># 文件夹下拼接图片数量</span></span><br><span class="line">    array = openModel(model_path) <span class="comment"># 模板像素点数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(array)):</span><br><span class="line">        <span class="keyword">if</span>(i &lt; piclen):</span><br><span class="line">            picI = i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            picI = i-<span class="number">1000</span> <span class="comment"># 这里是图不够了😂</span></span><br><span class="line">        pasteImg = getImgPath(picI)[<span class="number">0</span>] <span class="comment"># 第picI张图片</span></span><br><span class="line">        imgpaste = Image.<span class="built_in">open</span>(pasteImg).resize((<span class="number">50</span>,<span class="number">50</span>)) <span class="comment"># 统一用于拼接图片的尺寸</span></span><br><span class="line">        <span class="comment"># imgpaste = Image.open(modelImg).resize((50,50))</span></span><br><span class="line">        <span class="comment"># 行 Row 列 Column</span></span><br><span class="line">        row, column = i/<span class="number">50</span>,i%<span class="number">50</span> <span class="comment"># 行列值，相当于图片在新图中的坐标</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="number">10</span> &lt; array[i] &lt; <span class="number">245</span>):</span><br><span class="line">            imnew.paste(imgpaste,(<span class="built_in">int</span>(row*<span class="number">50</span>), <span class="built_in">int</span>(column*<span class="number">50</span>)))</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;正在拼接第 %d 张图，还剩下 %d 张&quot;</span> %(i,<span class="built_in">len</span>(array)-i))</span><br><span class="line">            <span class="comment"># print((int(row*50), int(column*50)))</span></span><br><span class="line">    imnew.show()</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/p/1e3f5113/pintu.png" alt="拼图结果"></p>
+<h3 id="待优化"><a href="#待优化" class="headerlink" title="待优化"></a>待优化</h3><ol>
+<li>颜色分布与原图匹配</li>
+<li>运行速度</li>
+</ol>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这次呢做出了想要的目标效果，但是很多地方没有异常处理，用老师的话说就是程序不够“壮”(健壮性)</p>
+<p>在思路方面以前最开始没做出出来就是以为那时候想法不对：只想着在原图上将图片直接替换像素点，然后搜索资料的发现也被带偏。后来换个方法，不在原图操作，那我自己重新画一张图出来不就好了 (√)。</p>
+<p>除了思路之外，中间过程的一些地方，文件路径什么的，还是瞎(shi)操(jian)作(jin)<br>处理图像先对图像的基本情况稍作了解，后面会少走许多弯路。</p>
+<p>完整程序：<a href="/article_code/Puzzle1.0.py">图片拼接</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/1e3f5113/" title="PIL实现图片拼接">https://umm.js.org/p/1e3f5113/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Image/" rel="tag"># Image</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/d5a52b94/" rel="prev" title="Python实现2DPSK">
+                  <i class="fa fa-angle-left"></i> Python实现2DPSK
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/6f136742/" rel="next" title="图片拼接优化">
+                  图片拼接优化 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">169k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录一下对ActiveMQ的理解以及使用Spring整合。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring 之 ActiveMQ 学习">
+<meta property="og:url" content="https://umm.js.org/p/a0b6ba05/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="记录一下对ActiveMQ的理解以及使用Spring整合。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://umm.js.org/p/a0b6ba05/001.png">
+<meta property="og:image" content="https://umm.js.org/p/a0b6ba05/002.png">
+<meta property="og:image" content="https://umm.js.org/p/a0b6ba05/jms-programmingModel.gif">
+<meta property="article:published_time" content="2019-08-02T14:51:46.000Z">
+<meta property="article:modified_time" content="2019-08-02T14:51:46.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="ActiveMQ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://umm.js.org/p/a0b6ba05/001.png">
+
+
+<link rel="canonical" href="https://umm.js.org/p/a0b6ba05/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/a0b6ba05/","path":"p/a0b6ba05/","title":"Spring 之 ActiveMQ 学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring 之 ActiveMQ 学习 | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">消息队列简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activate%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Activate使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-Spring-JMS"><span class="nav-number">2.1.</span> <span class="nav-text">Using Spring JMS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%B8%85%E5%8D%95"><span class="nav-number">2.2.</span> <span class="nav-text">程序清单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Message-Config"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置 Message Config</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEMessgaeListener-Config"><span class="nav-number">2.2.2.</span> <span class="nav-text">设置MessgaeListener Config</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.3.</span> <span class="nav-text">发送消息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.4.</span> <span class="nav-text">接收消息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">2.2.5.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">99</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/a0b6ba05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring 之 ActiveMQ 学习 | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring 之 ActiveMQ 学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-02 22:51:46" itemprop="dateCreated datePublished" datetime="2019-08-02T22:51:46+08:00">2019-08-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-Web/" itemprop="url" rel="index"><span itemprop="name">Java Web</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>记录一下对ActiveMQ的理解以及使用Spring整合。</p>
+<span id="more"></span>
+
+<h2 id="消息队列简介"><a href="#消息队列简介" class="headerlink" title="消息队列简介"></a>消息队列简介</h2><p><strong>Q: ActiveMQ是什么？</strong></p>
+<blockquote><p>Apache ActiveMQ™ is the most popular and powerful open source messaging and <a target="_blank" rel="noopener" href="http://activemq.apache.org/enterprise-integration-patterns">Integration Patterns</a> server.</p>
+<p>Apache ActiveMQ is fast, supports many <a target="_blank" rel="noopener" href="http://activemq.apache.org/cross-language-clients">Cross Language Clients and Protocols</a>, comes with easy to use <a target="_blank" rel="noopener" href="http://activemq.apache.org/enterprise-integration-patterns">Enterprise Integration Patterns</a> and many <a target="_blank" rel="noopener" href="http://activemq.apache.org/features">advanced features</a> while fully supporting <a target="_blank" rel="noopener" href="http://java.sun.com/products/jms/">JMS 1.1</a> and J2EE 1.4. Apache ActiveMQ is released under the <a target="_blank" rel="noopener" href="http://www.apache.org/">Apache</a> <a target="_blank" rel="noopener" href="http://www.apache.org/licenses/LICENSE-2.0">2.0 License</a></p>
+<footer><strong>官方介绍</strong><cite><a target="_blank" rel="noopener" href="http://activemq.apache.org/components/classic/">activemq.apache.org/components/classic</a></cite></footer></blockquote>
+
+<p><br/>Apache ActiveMQ™是最流行和最强大的<strong>开源消息传递</strong>和集成模式服务器。<br>Apache ActiveMQ <strong>速度很快</strong>，<strong>支持许多跨语言</strong>客户端和协议，具有易于使用的企业集成模式和许多高级特性，同时<strong>完全支持 JMS 1.1和 J2EE 1.4</strong>。 Apache ActiveMQ 是在 Apache 2.0许可协议下发布的。</p>
+<p><strong>Q: 消息队列是什么？有什么用？</strong><br>字面意思就是存放消息的队列，事实上也是这样。考虑一下使用场景就很好理解：</p>
+<p><img data-src="/p/a0b6ba05/001.png" alt="图源:《大型网站技术架构》"></p>
+<blockquote>
+<p>在不使用消息队列的时候，用户的请求数据直接写入数据库，在高并发的情况下数据库压力剧增，使得响应速度变慢。但是在使用消息队列之后，用户的请求数据发送给消息队列之后立即返回，再由消息队列的消费者进程从消息队列中获取数据，异步写入数据库。由于消息队列服务器处理速度快于数据库（消息队列也比数据库有更好的伸缩性），因此响应速度得到大幅改善。– 参考《大型网站技术架构：核心原理与案例分析》</p>
+</blockquote>
+<p><img data-src="/p/a0b6ba05/002.png" alt="图源:《大型网站技术架构》"></p>
+<blockquote>
+<p>消息队列具有很好的削峰作用——即通过异步处理，将短时间高并发产生的事务消息存储在消息队列中，从而削平高峰期的并发事务。在电子商务网站促销活动中，合理使用消息队列，可有效抵御促销活动刚开始大量涌入的订单对系统造成的冲击。 – 参考《大型网站技术架构：核心原理与案例分析》</p>
+</blockquote>
+<h2 id="Activate使用"><a href="#Activate使用" class="headerlink" title="Activate使用"></a>Activate使用</h2><p>在不使用Spring整合之前，标准 API 涉及到创建许多中间对象。 要发送消息，执行以下“ API”步骤:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ConnectionFactory-&gt;Connection-&gt;Session-&gt;MessageProducer-&gt;send</span><br></pre></td></tr></table></figure>
+
+<p>在 ConnectionFactory 和 Send 操作之间，创建并销毁了三个中间对象。</p>
+<p><img data-src="/p/a0b6ba05/jms-programmingModel.gif" alt="jms-programmingModel"></p>
+<blockquote>
+<p>图源：<a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html">The Java EE 6 Tutorial</a></p>
+</blockquote>
+<h3 id="Using-Spring-JMS"><a href="#Using-Spring-JMS" class="headerlink" title="Using Spring JMS"></a>Using Spring JMS</h3><p>Jmstemplate 类是 JMS 核心包中的中心类。 它简化了 JMS 的使用，因为它在发送或同步接收消息时处理资源的创建和释放。</p>
+<blockquote><p><code>JmsTemplate</code> : Additionally, we have configured a <a target="_blank" rel="noopener" href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jms/core/JmsTemplate.html">JmsTemplate</a> which provides an abstraction , hiding all the complexities of JMS communication. Without JmsTemplate, you will be forced to create <code>connections/sessions/MessageProducers/MessageConsumers</code> and catch all the nasty exception platform may throw. With JmsTemplate ,you get simple API’s to work with , and spring behind-the-scenes take care of all the JMS complexities. It takes care of creating a connection, obtaining a session, and finally sending [as well as synchronous receiving] of message. We will be using JmsTemplate for sending the message. Do note that JmsTemplate also provides possibilities for receiving message but that is synchronous[blocks the listening application], and usually not preferred when asynchronous communication is possible.</p>
+<footer><strong>WebSystique</strong><cite><a target="_blank" rel="noopener" href="http://websystique.com/springmvc/spring-4-mvc-jms-activemq-annotation-based-example/">websystique.com/springmvc/spring-4-mvc-jms-activemq-annotation-based-example</a></cite></footer></blockquote>
+
+<p><br/>JmsTemplate: 它提供了一个抽象，隐藏了 JMS 通信的所有复杂性。 如果没有 JmsTemplate，您将被迫创建连接 <code>session / Messageproducers / MessageConsumers</code>，并捕获可能抛出的所有讨厌的异常平台。 使用 JmsTemplate，您可以使用简单的 API，并在幕后处理所有的 JMS 复杂性。 它负责创建连接，获取会话，最后发送(以及同步接收)消息。 我们将使用 JmsTemplate 发送消息。 请注意，JmsTemplate 也提供了接收消息的可能性，但这是同步的(阻塞监听应用程序)，而且在可能进行的异步通信时通常不会首选。</p>
+<h3 id="程序清单"><a href="#程序清单" class="headerlink" title="程序清单"></a>程序清单</h3><blockquote>
+<p>以上，使用 Jmstemplate 可以简化整个消息队列的创建和使用过程，程序清单：</p>
+</blockquote>
+<h4 id="配置-Message-Config"><a href="#配置-Message-Config" class="headerlink" title="配置 Message Config"></a>配置 Message Config</h4><p>上面说到，Spring 简化了我们对消息队列中对象的创建，这里体现出来了，我们只需要关注<code>ConnectionFactory </code>和<code>JmsTemplate </code>，剩下的事情交给 Spring 来处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MessagingConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_BROKER_URL</span> <span class="operator">=</span> <span class="string">&quot;tcp://localhost:61616&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SendDes</span> <span class="operator">=</span> <span class="string">&quot;test-topic&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> ActiveMQConnectionFactory <span class="title function_">connectionFactory</span> <span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 创建一个ActiveMQ连接工厂</span></span><br><span class="line">        <span class="type">ActiveMQConnectionFactory</span> <span class="variable">connectionFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ActiveMQConnectionFactory</span>();</span><br><span class="line">        <span class="comment">// 设置代理地址</span></span><br><span class="line">        connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);</span><br><span class="line">        <span class="comment">// 设置受信任的包</span></span><br><span class="line">        connectionFactory.setTrustedPackages(Arrays.asList(<span class="string">&quot;org.js.umm&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> connectionFactory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> JmsTemplate <span class="title function_">jmsTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 创建一个Jms模板</span></span><br><span class="line">        <span class="type">JmsTemplate</span> <span class="variable">template</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JmsTemplate</span>();</span><br><span class="line">        <span class="comment">// 设置连接工厂</span></span><br><span class="line">        template.setConnectionFactory(connectionFactory());</span><br><span class="line">        <span class="comment">// true--topic; false--queue(default)</span></span><br><span class="line">        template.setPubSubDomain(<span class="literal">true</span>);</span><br><span class="line">        <span class="comment">// 设置默认的消息目的地址</span></span><br><span class="line">        template.setDefaultDestinationName(SendDes);</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置MessgaeListener-Config"><a href="#设置MessgaeListener-Config" class="headerlink" title="设置MessgaeListener Config"></a>设置MessgaeListener Config</h4><p>消息监听配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableJms</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MessagingListenerConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    ConnectionFactory connectionFactory;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> DefaultJmsListenerContainerFactory <span class="title function_">jmsListenerContainerFactory</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">DefaultJmsListenerContainerFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultJmsListenerContainerFactory</span>();</span><br><span class="line">        factory.setConnectionFactory(connectionFactory);</span><br><span class="line">        <span class="comment">// 设置factory的并发性</span></span><br><span class="line"><span class="comment">//        factory.setConcurrency(&quot;1-1&quot;);</span></span><br><span class="line">        factory.setPubSubDomain(<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="发送消息"><a href="#发送消息" class="headerlink" title="发送消息"></a>发送消息</h4><p>注册一个组件，给生产者发送消息调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SendMessage</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    JmsTemplate jmsTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">messageSend</span><span class="params">()</span> &#123;</span><br><span class="line">        jmsTemplate.send(session -&gt; session.createTextMessage(<span class="string">&quot;test message&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="接收消息"><a href="#接收消息" class="headerlink" title="接收消息"></a>接收消息</h4><p>JmsListener注解进行消息异步监听，这样不会阻塞进程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReceiveMessage</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> JmsTemplate jmsTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">ReceiveDes</span> <span class="operator">=</span> <span class="string">&quot;test-topic&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JmsListener(destination = ReceiveDes)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive</span><span class="params">(<span class="keyword">final</span> TextMessage message)</span> <span class="keyword">throws</span> JMSException &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;get the test message: &quot;</span> + message.getText());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestSend</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(TestSend.class);</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    SendMessage sendMessage;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/send&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendMessage1</span><span class="params">()</span>&#123;</span><br><span class="line">        logger.info(<span class="string">&quot;------------------------------&quot;</span>);</span><br><span class="line">        logger.info(<span class="string">&quot;Sending message...&quot;</span>);</span><br><span class="line">        sendMessage.messageSend();</span><br><span class="line">        logger.info(<span class="string">&quot;------------------------------&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器访问<code>localhost:8080/send</code>，控制台打印出日志以及发送的测试消息就ok了。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>消息队列，简单使用不难，主要是了解「消息队列」这个概念。</p>
+<p>期间遇到的 bug 就是依赖冲突（具体表现为，tomcat启动时报错，war包无法打包部署到服务器），&#x2F;十分苦涩。第一次遇到，懵了，然后查了一波，是依赖的问题，然后 IDEA -&gt; Show Dependencies 查看冲突的包，Exclude 一下就解决了。</p>
+<p>心态要好，慢慢查问题，每一次bug也是积累经验的过程（喵喵喵）。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html">The Java EE 6 Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="http://activemq.apache.org/components/classic/">ActiveMQ 官方介绍</a></li>
+<li><a target="_blank" rel="noopener" href="http://websystique.com/springmvc/spring-4-mvc-jms-activemq-annotation-based-example/">Websystique</a></li>
+<li>《大型网站技术架构：核心原理与案例分析》</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/a0b6ba05/" title="Spring 之 ActiveMQ 学习">https://umm.js.org/p/a0b6ba05/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+              <a href="/tags/ActiveMQ/" rel="tag"># ActiveMQ</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/b6e26cdc/" rel="prev" title="Spring MVC之Redis学习">
+                  <i class="fa fa-angle-left"></i> Spring MVC之Redis学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/fbf9fa8b/" rel="next" title="Spring MVC 简单实现博客内容管理系统">
+                  Spring MVC 简单实现博客内容管理系统 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">169k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

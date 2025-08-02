@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="之前没怎么接触api，最近分析了一下关于GitHub用户的commit时间，初步得出关于该用户的commit时间规律等等。（ 事前查了一下，网上大部分关于GitHub上数据分析的文章推荐使用官方提供的api: GitHub Developer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python实现Github commit时间分析">
+<meta property="og:url" content="https://umm.js.org/p/5c5365ec/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="之前没怎么接触api，最近分析了一下关于GitHub用户的commit时间，初步得出关于该用户的commit时间规律等等。（ 事前查了一下，网上大部分关于GitHub上数据分析的文章推荐使用官方提供的api: GitHub Developer">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://umm.js.org/p/5c5365ec/Broken-line.png">
+<meta property="og:image" content="https://umm.js.org/p/5c5365ec/box.png">
+<meta property="article:published_time" content="2018-12-18T14:47:24.000Z">
+<meta property="article:modified_time" content="2018-12-18T14:47:24.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Spider">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://umm.js.org/p/5c5365ec/Broken-line.png">
+
+
+<link rel="canonical" href="https://umm.js.org/p/5c5365ec/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/5c5365ec/","path":"p/5c5365ec/","title":"Python实现Github commit时间分析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python实现Github commit时间分析 | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#API%E8%B0%83%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">API调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%90%E7%94%A8%E6%88%B7%E6%89%80%E6%9C%89%E7%9A%84%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">某用户所有的仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA%E4%BB%93%E5%BA%93%E7%9A%84commits"><span class="nav-number">1.2.</span> <span class="nav-text">单个仓库的commits</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">Python实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96API%E8%BF%94%E5%9B%9E%E5%86%85%E5%AE%B9"><span class="nav-number">2.1.</span> <span class="nav-text">获取API返回内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%9F%90%E7%94%A8%E6%88%B7%E6%89%80%E6%9C%89%E7%9A%84repo-name%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">获取某用户所有的repo name。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96repo%E4%B8%8B%E4%BD%9C%E8%80%85%E7%9A%84commit%E6%97%B6%E9%97%B4"><span class="nav-number">2.3.</span> <span class="nav-text">获取repo下作者的commit时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#planB"><span class="nav-number">3.</span> <span class="nav-text">planB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%BB%93%E5%BA%93commit-sha"><span class="nav-number">3.1.</span> <span class="nav-text">获取仓库commit sha</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%9F%90%E7%94%A8%E6%88%B7%E6%89%80%E6%9C%89repo"><span class="nav-number">3.2.</span> <span class="nav-text">获取某用户所有repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%9F%90repo%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89commit%E6%97%B6%E9%97%B4"><span class="nav-number">3.3.</span> <span class="nav-text">获取某repo下的所有commit时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">3.4.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">99</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/5c5365ec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python实现Github commit时间分析 | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python实现Github commit时间分析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-18 22:47:24" itemprop="dateCreated datePublished" datetime="2018-12-18T22:47:24+08:00">2018-12-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>之前没怎么接触api，最近分析了一下关于GitHub用户的<code>commit</code>时间，初步得出关于该用户的<code>commit</code>时间规律等等。（ 事前查了一下，网上大部分关于GitHub上数据分析的文章推荐使用官方提供的api: <a target="_blank" rel="noopener" href="https://developer.github.com/v3/">GitHub Developer</a></p>
+<span id="more"></span>
+
+<h2 id="API调用"><a href="#API调用" class="headerlink" title="API调用"></a>API调用</h2><p>对于Github上用户 所有提交的<code>commmit</code>，通过遍历其每个仓库的<code>commit</code>得到。</p>
+<h3 id="某用户所有的仓库"><a href="#某用户所有的仓库" class="headerlink" title="某用户所有的仓库"></a>某用户所有的仓库</h3><p>链接格式：<code>https://api.github.com/users/&#123;username&#125;/repos</code></p>
+<blockquote>
+<p>具体使用可参考：<a target="_blank" rel="noopener" href="https://developer.github.com/v3/repos/#list-user-repositories">List user repositories</a></p>
+</blockquote>
+<h3 id="单个仓库的commits"><a href="#单个仓库的commits" class="headerlink" title="单个仓库的commits"></a>单个仓库的commits</h3><p>链接格式：<code>https://api.github.com/repos/&#123;owner&#125;/&#123;repo&#125;/commits</code></p>
+<p>注意：commits后面不能加<code>/</code>，因为加<code>/</code>后面要到<code>SHA</code>值，否则，会出现 <code>&quot;No commit found for SHA: &quot;</code>的错误。</p>
+<blockquote>
+<p>具体使用可参考：<a target="_blank" rel="noopener" href="https://developer.github.com/v3/repos/commits/#get-a-single-commit">get-a-single-commit</a></p>
+<p>调用api后返回整整齐齐的json数据，在其中对于json数据操作就可以得到想要的信息。<br>完整api文档&#x2F;教程可参考：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.github.com/v3/">GitHub Developer v3 API文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.github.com/v3/guides/getting-started/">GitHub Developer v3 API教程</a></p>
+</blockquote>
+<h2 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h2><h3 id="获取API返回内容"><a href="#获取API返回内容" class="headerlink" title="获取API返回内容"></a>获取API返回内容</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">url</span>):</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1&#x27;</span>&#125;</span><br><span class="line">    html = requests.get(url, headers=headers) <span class="comment"># 发送请求</span></span><br><span class="line">    <span class="keyword">if</span> html.status_code == <span class="number">200</span>: <span class="comment"># 判断请求是否成功</span></span><br><span class="line">        <span class="comment"># print(html)</span></span><br><span class="line">        <span class="keyword">return</span> html.content <span class="comment"># 返回网页内容</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取某用户所有的repo-name。"><a href="#获取某用户所有的repo-name。" class="headerlink" title="获取某用户所有的repo name。"></a>获取某用户所有的repo name。</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_all_repo</span>(<span class="params">name</span>): <span class="comment"># 某人所有的repo</span></span><br><span class="line">    url_repos = <span class="string">&#x27;https://api.github.com/users/&#123;name&#125;/repos&#x27;</span>.<span class="built_in">format</span>(name=name)</span><br><span class="line">    html = get_data(url_repos)</span><br><span class="line"></span><br><span class="line">    json_data = json.loads(html)</span><br><span class="line">    <span class="comment"># json_data里储存的是html下的所有数据</span></span><br><span class="line">    all_repos = [] <span class="comment"># repos&#x27;s name数据存放数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> json_data:</span><br><span class="line">            repo = item[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">            all_repos.append(repo)</span><br><span class="line">        <span class="built_in">print</span>(all_repos) <span class="comment"># 某用户的所有repo列表</span></span><br><span class="line">        <span class="built_in">print</span>( <span class="string">&quot;the %s totally has %d repos&quot;</span> %(name,<span class="built_in">len</span>(all_repos)) )</span><br><span class="line">        <span class="keyword">return</span> name,all_repos</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(e)</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取repo下作者的commit时间"><a href="#获取repo下作者的commit时间" class="headerlink" title="获取repo下作者的commit时间"></a>获取repo下作者的commit时间</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">parse_data</span>(<span class="params">html</span>):</span><br><span class="line">    json_data = json.loads(html) <span class="comment"># json_data里储存的是html下的所有数据</span></span><br><span class="line">    commit_date_all = [] <span class="comment"># commits date数据存放数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> json_data:</span><br><span class="line">            commits = item[<span class="string">&#x27;commit&#x27;</span>][<span class="string">&#x27;committer&#x27;</span>]</span><br><span class="line">            commit_date_all.append(commits[<span class="string">&#x27;date&#x27;</span>])</span><br><span class="line">            <span class="comment"># print(commit_date_all)</span></span><br><span class="line">        <span class="keyword">return</span> commit_date_all</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br></pre></td></tr></table></figure>
+
+<h2 id="planB"><a href="#planB" class="headerlink" title="planB"></a>planB</h2><blockquote>
+<p>re分析Github commit页面获取所有GitHub commmit时间</p>
+</blockquote>
+<h3 id="获取仓库commit-sha"><a href="#获取仓库commit-sha" class="headerlink" title="获取仓库commit sha"></a>获取仓库commit sha</h3><p>GitHub个人仓库的<code>commit</code> url的构成如下，每个repo都对应一个commit sha值，后面的num是一页的<code>commit</code>数，一页有35个，从1开始，每页加34。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/&#123;user&#125;/&#123;repo_name&#125;/commits/master?after=&#123;commit_sha&#125;+&#123;num&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过分析页面元素，利用re简单提取commit sha</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_sha</span>(<span class="params">user, repo_name</span>): <span class="comment"># 用户的每个repo对应一个commit sha</span></span><br><span class="line">    url = <span class="string">&quot;https://github.com/&#123;user&#125;/&#123;repo_name&#125;/commits/master&quot;</span>.<span class="built_in">format</span>(user=user, repo_name=repo_name)</span><br><span class="line">    html = get_html(url)</span><br><span class="line">    commit_sha = re.findall(<span class="string">r&#x27;href=&quot;https://github.com/.*commit/(.*?)&quot;&#x27;</span>, html)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> commit_sha</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取某用户所有repo"><a href="#获取某用户所有repo" class="headerlink" title="获取某用户所有repo"></a>获取某用户所有repo</h3><p>通过遍历一个人在所有的repo下的commit时间，来实现获取一个人所有的<code>commit</code>时间。<br>方法也是通过分析页面元素，利用re简单提取所有的仓库名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_all_repo</span>(<span class="params">user</span>):</span><br><span class="line">    url = <span class="string">&#x27;https://github.com/&#123;user&#125;&#x27;</span>.<span class="built_in">format</span>(user=user)</span><br><span class="line">    html = get_html(url)</span><br><span class="line">    all_repo = re.findall(<span class="string">r&#x27;&lt;span class=&quot;repo js-repo&quot; title=&quot;(.*)&quot;&#x27;</span>, html)</span><br><span class="line">    <span class="keyword">return</span> all_repo</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取某repo下的所有commit时间"><a href="#获取某repo下的所有commit时间" class="headerlink" title="获取某repo下的所有commit时间"></a>获取某repo下的所有commit时间</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">single_repo_commits</span>(<span class="params">user, repo_name</span>):</span><br><span class="line">    num = <span class="number">0</span></span><br><span class="line">    page_flag = <span class="number">66</span> <span class="comment"># 设置页面初始标志,用于判断是否到达末页</span></span><br><span class="line">    page_num = <span class="number">0</span></span><br><span class="line">    data_num = <span class="number">0</span></span><br><span class="line">    commit_sha = get_sha(user, repo_name)</span><br><span class="line">    all_date = [] <span class="comment"># 储存时间数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (page_flag <span class="keyword">and</span> page_num&lt;<span class="number">5</span>): <span class="comment"># 测试前五页</span></span><br><span class="line">        url = <span class="string">&quot;https://github.com/&#123;user&#125;/&#123;repo_name&#125;/commits/master?after=&#123;commit_sha&#125;+&#123;num&#125;&quot;</span>.<span class="built_in">format</span>(user=user, repo_name=repo_name, commit_sha=commit_sha, num=num) <span class="comment"># 构建链接</span></span><br><span class="line">        html = get_html(url) <span class="comment"># 获取页面内容</span></span><br><span class="line">        time_data = re.findall(<span class="string">r&#x27;&lt;relative-time datetime=(.*)&lt;/relative-time&gt;&#x27;</span>, html) <span class="comment"># re匹配时间元素</span></span><br><span class="line">        page_flag = <span class="built_in">len</span>(time_data)</span><br><span class="line">        num = num + <span class="number">34</span> <span class="comment"># 进入下一页</span></span><br><span class="line">        page_num = page_num+<span class="number">1</span></span><br><span class="line">        data_num = data_num+<span class="built_in">len</span>(time_data)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;page %d is ok\n get %d date&quot;</span> % (page_num, <span class="built_in">len</span>(time_data)))</span><br><span class="line">        <span class="keyword">for</span> date <span class="keyword">in</span> time_data:</span><br><span class="line">            all_date.append(date[<span class="number">1</span>:<span class="number">20</span>])</span><br><span class="line">        time.sleep(<span class="number">1</span>) <span class="comment"># 适当延时一下 单位：s</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;the repo &lt;%s&gt; totally get %d commits&#x27;date&quot;</span> % (repo_name, data_num))</span><br><span class="line">    <span class="keyword">return</span> all_date</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对获取的时间数据进行简单的数据分析。</p>
+<ul>
+<li>统计一天内各时间段的出现频率，这个可以分析出某人的工作时间偏好等等。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hour_Hz</span>():</span><br><span class="line">    datals = []</span><br><span class="line">    date_h = []</span><br><span class="line">    hour_count = &#123;&#125;</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&quot;commits.txt&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> f:</span><br><span class="line">        datals.append(i.split(<span class="string">&quot;,&quot;</span>))</span><br><span class="line">    f.close()</span><br><span class="line">    <span class="comment"># datals[0]所有date的集合</span></span><br><span class="line">    dateall = datals[<span class="number">0</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">len</span>(dateall))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dateall)):</span><br><span class="line">        date_h.append((dateall[i][<span class="number">11</span>:<span class="number">13</span>]))</span><br><span class="line">    <span class="comment"># date_h是所有小时的集合</span></span><br><span class="line">    <span class="comment"># print(date_h)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> date_h:</span><br><span class="line">        hour_count[key] = hour_count.get(key, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    <span class="comment"># print (hour_count)</span></span><br><span class="line">    <span class="keyword">return</span> hour_count</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>绘制线性图更直观显示结果：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hour_Hz</span>(<span class="params">file_path</span>):</span><br><span class="line">    datals = []</span><br><span class="line">    date_h = []</span><br><span class="line">    hour_count = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    f = <span class="built_in">open</span>(file_path)   <span class="comment"># 对xx文本的分析</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> f:</span><br><span class="line">        datals.append(i.split(<span class="string">&quot;,&quot;</span>)) <span class="comment"># 文本格式分割形成列表</span></span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line">    dateall = datals[<span class="number">0</span>] <span class="comment"># datals[0]表示所有date的集合</span></span><br><span class="line">    <span class="comment"># print(len(dateall))</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dateall)):</span><br><span class="line">        date_h.append((dateall[i][<span class="number">11</span>:<span class="number">13</span>])) <span class="comment"># 取时间hour部分 ps.date_h是所有小时的集合</span></span><br><span class="line">    <span class="comment"># print(date_h)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> date_h:</span><br><span class="line">        hour_count[key] = hour_count.get(key, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    <span class="comment"># print (hour_count)</span></span><br><span class="line">    <span class="keyword">return</span> hour_count</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hour_Hz_plot</span>(<span class="params">file_path</span>):</span><br><span class="line">    hour_sort=[]</span><br><span class="line">    h_key_sort = []</span><br><span class="line"></span><br><span class="line">    hour_H = hour_Hz(file_path) <span class="comment">#得到时间分析数据，各时间的出现频率</span></span><br><span class="line">    h_key = <span class="built_in">list</span>(hour_H.keys())</span><br><span class="line">    ind = np.arange(<span class="built_in">len</span>(h_key)) <span class="comment"># 图表的x轴间隔</span></span><br><span class="line">    <span class="comment"># 整理数据</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(h_key)):</span><br><span class="line">        index = <span class="built_in">str</span>(i) <span class="keyword">if</span> i&gt;<span class="number">9</span> <span class="keyword">else</span> <span class="string">&#x27;0&#x27;</span> + <span class="built_in">str</span>(i)</span><br><span class="line">        hour_sort.append(hour_H[index]) <span class="comment"># 整理散乱顺序数据为00-23顺序</span></span><br><span class="line">        h_key_sort.append(i) <span class="comment"># 绘图时x轴刻度</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘图</span></span><br><span class="line">    fig=plt.figure()</span><br><span class="line">    ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">    rects1 = ax.plot(ind, hour_sort, <span class="string">&#x27;r-&#x27;</span>, marker=<span class="string">&#x27;o&#x27;</span>) <span class="comment"># 设置图表参数</span></span><br><span class="line">    plt.xticks(np.arange(<span class="built_in">len</span>(h_key)), h_key_sort) <span class="comment"># 画x轴标签</span></span><br><span class="line">    <span class="comment"># plt.show()</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如图：</p>
+<p><img data-src="/p/5c5365ec/Broken-line.png" alt="折线图"></p>
+<ul>
+<li>通过箱型图显示工作日</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">weekday_2_box</span>(<span class="params">file_path</span>):</span><br><span class="line">    datals = []</span><br><span class="line">    date_weekday = []</span><br><span class="line">    weekday_count = &#123;&#125;</span><br><span class="line">    f = <span class="built_in">open</span>(file_path)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> f:</span><br><span class="line">        datals.append(i.split(<span class="string">&quot;,&quot;</span>))</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line">    dateall = datals[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># print(len(dateall))</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(dateall)):</span><br><span class="line">        weekday = datetime.strptime((dateall[i][<span class="number">0</span>:<span class="number">10</span>]),<span class="string">&quot;%Y-%M-%d&quot;</span>).weekday()+<span class="number">1</span></span><br><span class="line">        date_weekday.append(weekday)</span><br><span class="line">    all_weekday = date_weekday</span><br><span class="line">    <span class="comment"># print(all_weekday)</span></span><br><span class="line">    fig,ax = plt.subplots(figsize=(<span class="number">5</span>,<span class="number">3</span>))</span><br><span class="line">    plt.boxplot(all_weekday)</span><br><span class="line">    plt.title(<span class="string">&#x27;weekday boxplot&#x27;</span>)</span><br><span class="line">    plt.setp(ax,xticklabels=[<span class="string">&#x27;weekday&#x27;</span>])</span><br><span class="line">    plt.grid(<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>效果如图：</p>
+<p><img data-src="/p/5c5365ec/box.png" alt="箱型图"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>整体思路比较简单，也许Github比较善良(-:</p>
+<p>所有commit时间数据 &lt; 所有repo的commit时间数据 &lt; 某个repo的所有commit时间数据 &lt; 单个repo某页commit时间数据</p>
+<p>完整程序：</p>
+<ol>
+<li><p><a href="/article_code/Github-commit-time-spider.py">Github用户commit数据爬取</a></p>
+</li>
+<li><p><a href="/article_code/Github-commit-analysis.py">Github用户commit数据分析</a></p>
+</li>
+</ol>
+<p>今年时间进度：▓▓▓▓▓▓▓▓▓▓▓▓▓▓░  99%</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/5c5365ec/" title="Python实现Github commit时间分析">https://umm.js.org/p/5c5365ec/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Spider/" rel="tag"># Spider</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/ad444f4c/" rel="prev" title="Octave安装使用">
+                  <i class="fa fa-angle-left"></i> Octave安装使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/c00bdf6b/" rel="next" title="图片压缩操作">
+                  图片压缩操作 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">169k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

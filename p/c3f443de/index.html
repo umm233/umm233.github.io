@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Linux 上搭建Minecraft及Terraria服务器，使用脚本自动化启动及配置。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux搭建Minecraft&#x2F;Terraria服务器">
+<meta property="og:url" content="https://umm.js.org/p/c3f443de/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="Linux 上搭建Minecraft及Terraria服务器，使用脚本自动化启动及配置。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-15T13:36:18.000Z">
+<meta property="article:modified_time" content="2020-02-15T13:36:18.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Game">
+<meta property="article:tag" content="Tmux">
+<meta property="article:tag" content="Debian">
+<meta property="article:tag" content="Minecraft">
+<meta property="article:tag" content="Terraria">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://umm.js.org/p/c3f443de/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/c3f443de/","path":"p/c3f443de/","title":"Linux搭建Minecraft/Terraria服务器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux搭建Minecraft/Terraria服务器 | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAMinecraft%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">搭建Minecraft服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">安装使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">脚本自动化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">1.2.1.</span> <span class="nav-text">启动&#x2F;重启服务端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">1.2.2.</span> <span class="nav-text">关闭服务端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AD%E5%BB%BATerraria%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">搭建Terraria服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8-1"><span class="nav-number">2.1.</span> <span class="nav-text">安装使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E5%8C%96-1"><span class="nav-number">2.2.</span> <span class="nav-text">脚本自动化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F-1"><span class="nav-number">2.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Tmux%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E4%B8%A4%E4%B8%AA%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">使用Tmux同时运行两个服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Tmux"><span class="nav-number">3.1.</span> <span class="nav-text">安装Tmux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">常用快捷方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">99</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/c3f443de/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Linux搭建Minecraft/Terraria服务器 | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux搭建Minecraft/Terraria服务器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-15 21:36:18" itemprop="dateCreated datePublished" datetime="2020-02-15T21:36:18+08:00">2020-02-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">日常</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%97%A5%E5%B8%B8/%E6%B8%B8%E6%88%8F/" itemprop="url" rel="index"><span itemprop="name">游戏</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Linux 上搭建Minecraft及Terraria服务器，使用脚本自动化启动及配置。</p>
+<span id="more"></span>
+
+<h2 id="搭建Minecraft服务器"><a href="#搭建Minecraft服务器" class="headerlink" title="搭建Minecraft服务器"></a>搭建Minecraft服务器</h2><p>首先，要配置<code>Java</code>环境，可以参考之前写的<a href="https://umm.js.org/p/a440bc27/">Ubuntu 配置 Java 环境</a>，其他Linux发行版上操作大同小异。</p>
+<h3 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h3><ol>
+<li><p>下载<code>minecraft-server.jar</code></p>
+<blockquote>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://www.minecraft.net/en-us/download/server/">https://www.minecraft.net/en-us/download/server/</a></p>
+</blockquote>
+</li>
+<li><p>第一次运行: <code>java -Xmx1024M -Xms1024M -jar &#123;jar name&#125; nogui</code>获得错误并退出，同时生成<code>eula.txt</code>，其中1024M是给其分配的内存大小，可以根据服务器内存大小自行调整。</p>
+</li>
+<li><p>修改 <code>eula.txt</code>，同意协议</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- eula=false</span></span><br><span class="line"><span class="addition">+ eula=true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若出现服务器无法连接的情况，修改<code>server.properties</code></p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- online-mode=true</span></span><br><span class="line"><span class="addition">+ online-mode=false</span></span><br></pre></td></tr></table></figure>
+
+<p>关于minecraft的相关配置都在<code>server.properties</code>进行设置。关于各项参数的含义可参考<a target="_blank" rel="noopener" href="https://minecraft-zh.gamepedia.com/Server.properties">server.properties</a></p>
+</li>
+</ol>
+<h3 id="脚本自动化"><a href="#脚本自动化" class="headerlink" title="脚本自动化"></a>脚本自动化</h3><p>这里使用的是 tmux，后面有介绍一些命令和快捷键。这里直接上脚本：</p>
+<h4 id="启动-重启服务端"><a href="#启动-重启服务端" class="headerlink" title="启动&#x2F;重启服务端"></a>启动&#x2F;重启服务端</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># 关闭 minecraft 这个 session ，使得这个脚本也可以作为重启 mc 使用</span></span><br><span class="line">tmux kill-session -t minecraft</span><br><span class="line"><span class="comment"># 新建名为 minecraft 的会话，然后分离会话</span></span><br><span class="line">tmux new -s minecraft -d</span><br><span class="line"><span class="comment"># 重命名会话 minecraft 的窗口为 &quot;start&quot;</span></span><br><span class="line">tmux rename-window -t <span class="string">&quot;minecraft&quot;</span> start</span><br><span class="line"><span class="comment"># 这里的 path 修改成 server.jar 所在目录</span></span><br><span class="line">tmux send -t <span class="string">&quot;minecraft:start&quot;</span> <span class="string">&quot;cd path&quot;</span> Enter</span><br><span class="line"><span class="comment"># 发送指令到会话 minecraft 的 start 窗口，执行启动命令</span></span><br><span class="line">tmux send -t <span class="string">&quot;minecraft:start&quot;</span> <span class="string">&quot;java -Xms1024M -Xmx1536M -jar server.jar nogui&quot;</span> Enter</span><br></pre></td></tr></table></figure>
+
+<h4 id="关闭服务端"><a href="#关闭服务端" class="headerlink" title="关闭服务端"></a>关闭服务端</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># 关闭 minecraft 这个 session ，使得这个脚本也可以作为重启 mc 使用</span></span><br><span class="line">tmux kill-session -t minecraft</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>如果使用本地开服，可以使用<code>ngrok</code>或者其他内网穿透服务获得公网地址，但网络连接效果不佳。</p>
+<ul>
+<li><p>使用<code>ngrok</code>创建<code>tcp</code>连接映射（mc默认使用25565端口）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok tcp 25565</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得地址，类似<code>tcp://0.tcp.ngrok.io:17960</code></p>
+</li>
+<li><p>在mc里输入服务器地址：<code>0.tcp.ngrok.io:17960</code>即可</p>
+</li>
+</ul>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://minecraft-zh.gamepedia.com/%E6%95%99%E7%A8%8B/%E6%9E%B6%E8%AE%BE%E6%9C%8D%E5%8A%A1%E5%99%A8">minecraft教程&#x2F;架设服务器</a></p>
+</blockquote>
+<h2 id="搭建Terraria服务器"><a href="#搭建Terraria服务器" class="headerlink" title="搭建Terraria服务器"></a>搭建Terraria服务器</h2><h3 id="安装使用-1"><a href="#安装使用-1" class="headerlink" title="安装使用"></a>安装使用</h3><ul>
+<li><p>下载<code>http://terraria.org/server/terraria-server-1353.zip</code></p>
+</li>
+<li><p>修改运行文件权限：<code>chmod u+x TerrariaServer*</code></p>
+</li>
+<li><p>运行服务端程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./TerrariaServer.bin.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>然后会让你新建&#x2F;选择世界，以及配置限制最大玩家数等，基本上根据提示走就可以了。</p>
+</li>
+</ul>
+<h3 id="脚本自动化-1"><a href="#脚本自动化-1" class="headerlink" title="脚本自动化"></a>脚本自动化</h3><p>当然，还是自动化脚本方便点。</p>
+<p>创建一个terraria配置文件<code>terraria-conf</code>(配置文件对文件名没有要求)</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">maxplayers</span>=<span class="string">6</span></span><br><span class="line"><span class="attr">port</span>=<span class="string">13579</span></span><br><span class="line"><span class="comment"># 设置密码</span></span><br><span class="line"><span class="attr">password</span>=<span class="string">your-pwd</span></span><br><span class="line"><span class="attr">world</span>=<span class="string">/root/.local/share/Terraria/Worlds/sohot.wld</span></span><br><span class="line"><span class="attr">worldpath</span>=<span class="string">/root/.local/share/Terraria/Worlds/</span></span><br><span class="line"><span class="comment"># 开启端口自动转发</span></span><br><span class="line"><span class="attr">upnp</span>=<span class="string">1</span></span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<blockquote>
+<p>设置世界地图路径的时候，用<code>~</code>代替<code>root</code>会出问题，找不到文件所在，这里写完整的绝对路径</p>
+</blockquote>
+<p>然后使用脚本自动化启动配置terraria服务器。脚本内容如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭 terraria 这个 session ，使得这个脚本也可以作为重启 terraria 使用</span></span><br><span class="line">tmux kill-session -t terraria</span><br><span class="line"><span class="comment"># 新建名为 terraria 的会话，然后分离会话</span></span><br><span class="line">tmux new -s terraria -d</span><br><span class="line"><span class="comment"># 重命名会话 terraria 的窗口为 &quot;start&quot;</span></span><br><span class="line">tmux rename-window -t <span class="string">&quot;terraria&quot;</span> start</span><br><span class="line"><span class="comment"># 这里的 path 修改成 执行文件 所在目录</span></span><br><span class="line">tmux send -t <span class="string">&quot;terraria:start&quot;</span> <span class="string">&quot;cd ~/terraria/1403/Linux/&quot;</span> Enter</span><br><span class="line"><span class="comment"># 发送指令到会话 terraria 的 start 窗口，执行启动命令</span></span><br><span class="line">tmux send -t <span class="string">&quot;terraria:start&quot;</span> <span class="string">&quot;./TerrariaServer.bin.x86_64 -config ~/terraria/terraria-conf&quot;</span> Enter</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><p>默认下，泰拉瑞亚世界文件保存在</p>
+<ul>
+<li>Linux：<code>~/.local/share/Terraria</code></li>
+<li>MacOS是<code>~/Library/Application Support/Terraria/Worlds</code></li>
+<li>Windows：<code>C:\Users\&#123;username&#125;\Documents\My Games\Terraria\Worlds</code></li>
+</ul>
+<p>可以将本地开服的世界文件存放到服务器对应位置，然后继续玩之前的图。</p>
+<p>ps. Windows下Terraria用户文件存放在<code>C:\Users\&#123;username&#125;\Documents\My Games\Terraria\Players</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://terraria-zh.gamepedia.com/%E6%8C%87%E5%8D%97:%E5%BB%BA%E7%AB%8B%E6%B3%B0%E6%8B%89%E7%91%9E%E4%BA%9A%E6%9C%8D%E5%8A%A1%E5%99%A8">指南:建立泰拉瑞亚服务器</a></p>
+<h2 id="使用Tmux同时运行两个服务"><a href="#使用Tmux同时运行两个服务" class="headerlink" title="使用Tmux同时运行两个服务"></a>使用Tmux同时运行两个服务</h2><p>这里的两个指的是mc服务以及terraria服务，当然可以更多。这里顺带记录下tmux的相关操作。</p>
+<blockquote>
+<p>维基百科：<strong>tmux</strong> 是一个优秀的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E5%99%A8&action=edit&redlink=1">终端复用器</a>类<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%87%AA%E7%94%B1%E8%BD%AF%E4%BB%B6">自由软件</a>，功能类似 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/GNU_Screen">GNU Screen</a>，但使用 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/BSD%E8%AE%B8%E5%8F%AF%E8%AF%81">BSD 许可</a>发布。用户可以通过 tmux 在一个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B5%82%E7%AB%AF">终端</a>内管理多个分离的会话，窗口及面板，对于同时使用多个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E8%A1%8C">命令行</a>，或多个任务时非常方便。</p>
+</blockquote>
+<p>tmux有点像Windows上的cmder，tmux可以在shell里面开很多个”窗口“执行命令。</p>
+<h3 id="安装Tmux"><a href="#安装Tmux" class="headerlink" title="安装Tmux"></a>安装Tmux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install tmux</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用快捷方式"><a href="#常用快捷方式" class="headerlink" title="常用快捷方式"></a>常用快捷方式</h3><p>默认<code>crtl + b</code>触发：（<code>ctrl + b</code> - <code>o</code>表示同时按住<code>ctrl + b</code>，然后输入<code>o</code>，区分大小写）</p>
+<ul>
+<li><p>切分窗口：</p>
+<ul>
+<li>水平切分窗口：<code>ctrl + b</code> - <code>%</code></li>
+<li>垂直切分窗口：<code>ctrl + b</code> - <code>&quot;</code></li>
+<li>关闭当前切分窗口：<code>ctrl + d</code></li>
+<li>切换切分窗口：<code>ctrl + b</code> - <code>o</code></li>
+<li>调整切分窗口高度&#x2F;宽度：<code>ctrl + b</code> - <code>ctrl + ↑↓←→</code></li>
+</ul>
+</li>
+<li><p>新建窗口</p>
+<ul>
+<li>新建窗口：<code>ctrl + b</code> - <code>c</code></li>
+<li>回到前一个窗口：<code>ctrl + b</code> - <code>p</code></li>
+<li>切换下一个窗口：<code>ctrl + b</code> - <code>n</code></li>
+<li>关闭当前窗口（分离会话）：<code>ctrl + b</code> - <code>d</code></li>
+<li>以交互方式选择并附加到会话：<code>ctrl + b</code> - <code>s</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li><p>新建名为<code>test</code>的会话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看会话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭会话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux kill-session -t 会话名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关联&#x2F;切换会话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux attach -t 会话名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发送命令到 tmux 窗口执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 命名当前窗口为 &quot;start&quot;</span></span><br><span class="line">tmux rename-window -t <span class="string">&quot;minecraft&quot;</span> start</span><br><span class="line"><span class="comment"># 发送命令到会话minecraft的start窗口执行 top 命令</span></span><br><span class="line">tmux send -t <span class="string">&quot;minecraft:start&quot;</span> <span class="string">&quot;top&quot;</span> Enter</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>玩了一波自己搭的服，很舒服😀（冲冲冲）</p>
+<p>tmux很方便的实现多任务，很香🤣</p>
+<p>一直以来，对Linux有点懵逼（觉得很难），也没有很懂「Linux下，一切即文件」的概念，但自己折腾一波，好像有点懂了，对于Linux操作及命令，只能说熟能生巧吧。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/c3f443de/" title="Linux搭建Minecraft&#x2F;Terraria服务器">https://umm.js.org/p/c3f443de/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/Game/" rel="tag"># Game</a>
+              <a href="/tags/Tmux/" rel="tag"># Tmux</a>
+              <a href="/tags/Debian/" rel="tag"># Debian</a>
+              <a href="/tags/Minecraft/" rel="tag"># Minecraft</a>
+              <a href="/tags/Terraria/" rel="tag"># Terraria</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/1be651f5/" rel="prev" title="Docker初次使用-搭建TTRSS服务">
+                  <i class="fa fa-angle-left"></i> Docker初次使用-搭建TTRSS服务
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/ee9cdb04/" rel="next" title="IDEA 直接使用文件夹手动创建工程">
+                  IDEA 直接使用文件夹手动创建工程 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">169k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

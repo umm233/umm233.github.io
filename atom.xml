@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>三分之七橙</title>
+  <icon>https://www.gravatar.com/avatar/9c41c1534196555bd362023980982242</icon>
+  
+  <link href="https://umm.js.org/atom.xml" rel="self"/>
+  
+  <link href="https://umm.js.org/"/>
+  <updated>2025-08-02T15:24:01.000Z</updated>
+  <id>https://umm.js.org/</id>
+  
+  <author>
+    <name>Seeno</name>
+    <email>umm233@protonmail.com</email>
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何在Chrome中使用 uBlock Origin</title>
+    <link href="https://umm.js.org/p/51b230f0/"/>
+    <id>https://umm.js.org/p/51b230f0/</id>
+    <published>2025-08-02T15:24:01.000Z</published>
+    <updated>2025-08-02T15:24:01.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;uBlock Origin 在 Chrome 139 版本之后就不受支持，由于 Chrome 中 Manifest v2支持被弃用，仅支持Manifest v3。具体可以参考 &lt;a href=&quot;https://github.com/uBlockOrigin/uBlock-issues/wiki/About-Google-Chrome&#39;s-%22This-extension-may-soon-no-longer-be-supported%22&quot;&gt;About Google Chrome’s “This extension may soon no longer be supported”&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Tools" scheme="https://umm.js.org/categories/Tools/"/>
+    
+    
+    <category term="Tool" scheme="https://umm.js.org/tags/Tool/"/>
+    
+    <category term="Software" scheme="https://umm.js.org/tags/Software/"/>
+    
+    <category term="uBlock" scheme="https://umm.js.org/tags/uBlock/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>月记·202503</title>
+    <link href="https://umm.js.org/p/811ea67f/"/>
+    <id>https://umm.js.org/p/811ea67f/</id>
+    <published>2025-03-09T15:02:35.000Z</published>
+    <updated>2025-03-09T15:02:35.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;三月是樱花盛开和飘落的时节&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="日常" scheme="https://umm.js.org/categories/%E6%97%A5%E5%B8%B8/"/>
+    
+    
+    <category term="Note" scheme="https://umm.js.org/tags/Note/"/>
+    
+    <category term="Kindle" scheme="https://umm.js.org/tags/Kindle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git 笔记</title>
+    <link href="https://umm.js.org/p/810d4974/"/>
+    <id>https://umm.js.org/p/810d4974/</id>
+    <published>2025-03-09T13:10:50.000Z</published>
+    <updated>2025-03-09T13:10:50.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;记录一下 Git 中经常使用的操作以及一些问题解决方法&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Git" scheme="https://umm.js.org/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="https://umm.js.org/tags/Git/"/>
+    
+    <category term="GitHub" scheme="https://umm.js.org/tags/GitHub/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>月记·202502</title>
+    <link href="https://umm.js.org/p/2258a936/"/>
+    <id>https://umm.js.org/p/2258a936/</id>
+    <published>2025-02-27T13:50:20.000Z</published>
+    <updated>2025-02-27T13:50:20.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;关于我两秒钟把路由器弄坏，花两小时修好这件事&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="日常" scheme="https://umm.js.org/categories/%E6%97%A5%E5%B8%B8/"/>
+    
+    
+    <category term="Note" scheme="https://umm.js.org/tags/Note/"/>
+    
+    <category term="软路由" scheme="https://umm.js.org/tags/%E8%BD%AF%E8%B7%AF%E7%94%B1/"/>
+    
+    <category term="Realtek" scheme="https://umm.js.org/tags/Realtek/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>日常好物-Web篇</title>
+    <link href="https://umm.js.org/p/1a5a87d0/"/>
+    <id>https://umm.js.org/p/1a5a87d0/</id>
+    <published>2025-01-10T13:19:45.000Z</published>
+    <updated>2025-01-10T13:19:45.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;生活里常用的工具，持续更新&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Tools" scheme="https://umm.js.org/categories/Tools/"/>
+    
+    
+    <category term="Tool" scheme="https://umm.js.org/tags/Tool/"/>
+    
+    <category term="Life" scheme="https://umm.js.org/tags/Life/"/>
+    
+  </entry>
+  
+</feed>

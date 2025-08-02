@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="32x32" href="/avatar.gif">
+  <link rel="icon" type="image/png" sizes="16x16" href="/avatar.gif">
+  <link rel="mask-icon" href="/avatar.gif" color="#222">
+  <meta name="google-site-verification" content="4daZSdfkhclsb8lNlb-oQ21e4sT9t7uE3MuPCc6mSQ0">
+  <meta name="msvalidate.01" content="90632BDD7F175734738C409EB1F8430D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bree+Serif:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"umm.js.org","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"width":250},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Cisco Packet Tracer模拟配置路由器主要是基本配置说明、静态路由表及默认路由表配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cisco路由基本配置使用">
+<meta property="og:url" content="https://umm.js.org/p/5cc180f7/">
+<meta property="og:site_name" content="三分之七橙">
+<meta property="og:description" content="Cisco Packet Tracer模拟配置路由器主要是基本配置说明、静态路由表及默认路由表配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://umm.js.org/p/5cc180f7/startconnect.png">
+<meta property="og:image" content="https://umm.js.org/p/5cc180f7/routebaseconfig.png">
+<meta property="og:image" content="https://umm.js.org/p/5cc180f7/route-s.png">
+<meta property="og:image" content="https://umm.js.org/p/5cc180f7/watch-route-run.png">
+<meta property="og:image" content="https://umm.js.org/p/5cc180f7/route-topu.png">
+<meta property="og:image" content="https://umm.js.org/p/5cc180f7/route-table.png">
+<meta property="article:published_time" content="2019-04-07T02:03:42.000Z">
+<meta property="article:modified_time" content="2019-04-07T02:03:42.000Z">
+<meta property="article:author" content="Seeno">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="Network">
+<meta property="article:tag" content="Cisco">
+<meta property="article:tag" content="Route">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://umm.js.org/p/5cc180f7/startconnect.png">
+
+
+<link rel="canonical" href="https://umm.js.org/p/5cc180f7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://umm.js.org/p/5cc180f7/","path":"p/5cc180f7/","title":"Cisco路由基本配置使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Cisco路由基本配置使用 | 三分之七橙</title>
+  
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8341793904124783"
+     crossorigin="anonymous"></script>
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="三分之七橙" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">三分之七橙</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-shorts"><a href="/shorts/" rel="section"><i class="fa fa-hashtag fa-fw"></i>shorts</a></li><li class="menu-item menu-item-game"><a href="/game/" rel="section"><i class="fa fa-gamepad fa-fw"></i>game</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '(●—●)我藏好了！';
+        clearTimeout(titleTime);
+      } else {
+        document.title = '(/≧▽≦/)被找到了！';
+        titleTime = setTimeout(function() {
+          document.title = OriginTitile;
+        }, 2000);
+      }
+    });
+  </script>
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">路由器基本配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E9%97%B4%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.</span> <span class="nav-text">路由间连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1%E8%A1%A8-%E5%A4%9A%E4%B8%AA%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B9%8B%E9%97%B4"><span class="nav-number">3.</span> <span class="nav-text">设置静态路由表(多个路由器之间)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1"><span class="nav-number">4.</span> <span class="nav-text">设置默认路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seeno"
+      src="/avatar.gif">
+  <p class="site-author-name" itemprop="name">Seeno</p>
+  <div class="site-description" itemprop="description">233 no fun</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">99</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/umm233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;umm233" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:umm233@protonmail.com" title="E-Mail → mailto:umm233@protonmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.xlab.app/" title="https:&#x2F;&#x2F;blog.xlab.app" rel="noopener" target="_blank">明天的乌云</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://umm.js.org/p/5cc180f7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.gif">
+      <meta itemprop="name" content="Seeno">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="三分之七橙">
+      <meta itemprop="description" content="233 no fun">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Cisco路由基本配置使用 | 三分之七橙">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cisco路由基本配置使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-07 10:03:42" itemprop="dateCreated datePublished" datetime="2019-04-07T10:03:42+08:00">2019-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">网络管理</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Cisco Packet Tracer模拟配置路由器<br>主要是基本配置说明、静态路由表及默认路由表配置</p>
+<span id="more"></span>
+
+<h2 id="路由器基本配置"><a href="#路由器基本配置" class="headerlink" title="路由器基本配置"></a>路由器基本配置</h2><p>该开始连接路由，交换机和PC，会发现在和路由相连的那段是红色的状态，这个并不是bug，而是路由器尚未配置好，导致设备和路由器无法连接上。</p>
+<p><img data-src="/p/5cc180f7/startconnect.png"></p>
+<p>进入路由的IOS(命令行)，会发现它在询问你是否进行配置，然后跟着提示一步一步进行配置参数操作，配置好后和路由相连那段的状态就会从红色变为绿色了。</p>
+<p><img data-src="/p/5cc180f7/routebaseconfig.png" alt="route basic config"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">// 进行配置对话？</span><br><span class="line">Continue with configuration dialog? [yes/no]: yes</span><br><span class="line"></span><br><span class="line">// 在任何节点你都可以输入`?`获得帮助，使用`ctrl-c`随时可以退出配置对话，默认设置在方括号中。</span><br><span class="line">At any point you may enter a question mark &#x27;?&#x27; for help.</span><br><span class="line">Use ctrl-c to abort configuration dialog at any prompt.</span><br><span class="line">Default settings are in square brackets &#x27;[]&#x27;.</span><br><span class="line"></span><br><span class="line">// 基本管理设置只配置足够的连接来管理系统，扩展设置将要求您配置系统上的每个接口</span><br><span class="line">Basic management setup configures only enough connectivity</span><br><span class="line">for management of the system, extended setup will ask you</span><br><span class="line">to configure each interface on the system</span><br><span class="line"></span><br><span class="line">Would you like to enter basic management setup? [yes/no]: yes</span><br><span class="line">Configuring global parameters:</span><br><span class="line">  //输入主机名</span><br><span class="line">  Enter host name [Router]: R1</span><br><span class="line"></span><br><span class="line">  The enable secret is a password used to protect access to</span><br><span class="line">  privileged EXEC and configuration modes. This password, after entered, becomes encrypted in the configuration.</span><br><span class="line">  //输入加密密码(设置进入全局配置模式时，需要输入密码)</span><br><span class="line">  Enter enable secret: 123456</span><br><span class="line"></span><br><span class="line">  The enable password is used when you do not specify an</span><br><span class="line">  enable secret password, with some older software versions,and some boot images.</span><br><span class="line">  //设置明文密码，当未设置加密密码时将启用该密码(然并卵，当然要设置加密密码啦)</span><br><span class="line">  Enter enable password: 123</span><br><span class="line"></span><br><span class="line">  The virtual terminal password is used to protect</span><br><span class="line">  access to the router over a network interface.</span><br><span class="line">  //虚拟终端密码用于保护通过网络接口访问路由器</span><br><span class="line">  Enter virtual terminal password: 123</span><br><span class="line">Configure SNMP Network Management? [no]:</span><br><span class="line">//配置简单网络管理协议，默认跳过</span><br><span class="line">Current interface summary</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">//从上面的接口摘要中输入用于连接到管理网络的接口名称</span><br><span class="line">Enter interface name used to connect to the</span><br><span class="line">management network from the above interface summary:</span><br><span class="line">FastEthernet0/0</span><br><span class="line"></span><br><span class="line">//设置管理网络接口的IP地址</span><br><span class="line">Configuring interface FastEthernet0/0:</span><br><span class="line">  Configure IP on this interface? [yes]: yes</span><br><span class="line">    IP address for this interface: 10.0.0.1</span><br><span class="line">    Subnet mask for this interface [255.0.0.0] :</span><br><span class="line"></span><br><span class="line">The following configuration command script was created:</span><br><span class="line">// 显示配置信息，自行查看及检查</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由间连接"><a href="#路由间连接" class="headerlink" title="路由间连接"></a>路由间连接</h2><p>两台路由器之间使用DCE串口线相连(连接路由器串口Series)。<br>一开始也会出现两端节点状态显示为红色的情况，这可能是路由相连串口的IP地址没有配置好。进入全局配置模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int se2/0 //进入对应的串口号进行串口配置</span><br><span class="line">ip address 10.0.0.2 255.0.0.0</span><br></pre></td></tr></table></figure>
+
+<p>这样就配置好端口ip，这时候两端状态也从红色的阻塞状态变成绿色的连通状态。</p>
+<h2 id="设置静态路由表-多个路由器之间"><a href="#设置静态路由表-多个路由器之间" class="headerlink" title="设置静态路由表(多个路由器之间)"></a>设置静态路由表(多个路由器之间)</h2><p>进入全局配置模式进行配置(路由配置命令大部分和<a href="/p/29c0cb74/#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E8%BF%9B%E5%85%A5%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%A8%A1%E5%BC%8F">交换机的配置</a>命令一样)</p>
+<p>设置静态路由，根据请求的目标IP和下一跳的地址进行配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip route &lt;目标IP&gt; &lt;子网掩码&gt; &lt;下一跳地址&gt;</span><br><span class="line">eg. ip route 192.168.1.0 255.255.255.0 11.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>整个过程中需要注意的是：</p>
+<ol>
+<li>PC要设置好IP地址，子网掩码以及<u>网关</u><br>不同交换机下的主机之间通信可不设置网关，但不同路由下的主机通信必须设置网关。</li>
+<li>串口相连的交换机必须是同一网段<br>如果不是同一网段，那么路由的arp表里可能找不到你所请求的主机mac信息，导致路由转发信息，下一跳上的设备接收不到。(别问我我怎么知道的，刚开始我也只是有一个大胆的想法，没想到也让我大吃一惊&#x2F;苦涩)<br>对于这问题的调试以及说明可参考<a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_6281f8d60100falt.html">相连路由器端口IP地址为什么必须在同一个网段</a>（一样试着踩坑的）</li>
+</ol>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>网络拓扑：<br><img data-src="/p/5cc180f7/route-s.png"></p>
+<ol>
+<li>路由基本配置</li>
+<li>配置PC对应的的IP，子网掩码，网关</li>
+<li>设置静态路由表<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对于图中的Route0，配置好后，路由表添加一条：</span><br><span class="line">ip route 192.168.2.0 255.255.255.0 10.0.0.2</span><br><span class="line"></span><br><span class="line">对于图中的Route1，配置好后，路由表添加一条：</span><br><span class="line">ip route 192.168.2.0 255.255.255.0 10.0.0.2</span><br></pre></td></tr></table></figure>
+这样两台路由器下不同子网的主机就可以进行通信，可以通过ping&#x2F;tracert查看。</li>
+</ol>
+<p><img data-src="/p/5cc180f7/watch-route-run.png"></p>
+<h2 id="设置默认路由"><a href="#设置默认路由" class="headerlink" title="设置默认路由"></a>设置默认路由</h2><p>实际情况一条一条设置静态路由表，在现实生活中是不太可能的。<br>把所有情况都列举出来，这样太累了。对于这种情况，可采用默认路由设置，可以看作<code>if...else</code>的形式。if下的情况就是一条一条设置的静态路由表，而默认路由则是剩下的else。</p>
+<p>默认路由设置方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip route 0.0.0.0 0.0.0.0 &lt;默认下一跳地址&gt;</span><br><span class="line">// 0.0.0.0 表示匹配任意ip/子网掩码</span><br></pre></td></tr></table></figure>
+
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p>网络拓扑：<br><img data-src="/p/5cc180f7/route-topu.png"></p>
+<p>路由表设置如下：(类型中C表示直连，S表示静态路由)<br><img data-src="/p/5cc180f7/route-table.png"></p>
+<p>这样子配置好不同路由下的主机，即使处于不同网段，也可以相互通信。</p>
+<blockquote>
+<p>ps.如果未完全配置好路由表，执行<code>tracert 某IP</code>有可能出现一直查询网关IP，而不把信息传给下一跳的情况。</p>
+<p>别问我怎么知道:-)</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Seeno
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://umm.js.org/p/5cc180f7/" title="Cisco路由基本配置使用">https://umm.js.org/p/5cc180f7/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Note/" rel="tag"># Note</a>
+              <a href="/tags/Network/" rel="tag"># Network</a>
+              <a href="/tags/Cisco/" rel="tag"># Cisco</a>
+              <a href="/tags/Route/" rel="tag"># Route</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/1e2e0372/" rel="prev" title="月记·201903">
+                  <i class="fa fa-angle-left"></i> 月记·201903
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/47e0dab5/" rel="next" title="Cisco路由基本配置使用(二)">
+                  Cisco路由基本配置使用(二) <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><a href="http://www.miitbeian.gov.cn" target="_blank">地球 ICP 备 73 号 </a> </a>
+  </div>
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Seeno</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">169k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-+2+qOqR8CKoHh/AsVR9k2qaDBKWjYNC2nozhYmv5j9k=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"umm233/blog","issue_term":"title","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
