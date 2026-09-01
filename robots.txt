@@ -1,0 +1,67 @@
+User-agent: Googlebot
+Allow: /
+Allow: /about/
+Allow: /archives/
+Allow: /categories/
+Allow: /p/
+Allow: /page/
+Allow: /tags/
+Disallow: /article_code/
+Disallow: /downloads/
+Disallow: /images/
+Disallow: *.jpg$
+Disallow: *.png$
+Disallow: *.gif$
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: Bingbot
+Allow: /
+Allow: /about/
+Allow: /archives/
+Allow: /categories/
+Allow: /p/
+Allow: /page/
+Allow: /tags/
+Disallow: /article_code/
+Disallow: /downloads/
+Disallow: /images/
+Disallow: *.jpg$
+Disallow: *.png$
+Disallow: *.gif$
+
+User-agent: DuckDuckBot
+Allow: /
+Allow: /about/
+Allow: /archives/
+Allow: /categories/
+Allow: /p/
+Allow: /page/
+Allow: /tags/
+Disallow: /article_code/
+Disallow: /downloads/
+Disallow: /images/
+Disallow: *.jpg$
+Disallow: *.png$
+Disallow: *.gif$
+
+User-agent: Baiduspider
+Allow: /
+Allow: /about/
+Allow: /archives/
+Allow: /categories/
+Allow: /p/
+Allow: /page/
+Allow: /tags/
+Disallow: /article_code/
+Disallow: /downloads/
+Disallow: /images/
+Disallow: *.jpg$
+Disallow: *.png$
+Disallow: *.gif$
+
+User-agent: *
+Disallow: /
+
+Sitemap: https://umm.js.org/sitemap.xml

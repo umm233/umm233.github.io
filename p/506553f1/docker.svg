@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="36cm" height="19cm" viewBox="178 0 704 377" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="179.887" y="2.41667" width="316.097" height="326.633"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="179.887" y="2.41667" width="316.097" height="326.633"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="179.887" y="2.41667" width="316.097" height="326.633"/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 207.375 276.25 L 274.625,276.25 L 274.625,314.25 L 241,323.75 L 207.375,314.25 L 207.375,276.25z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 207.375 276.25 L 274.625,276.25 L 274.625,314.25 L 241,323.75 L 207.375,314.25 L 207.375,276.25"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="241" y="291.25">
+      <tspan x="241" y="291.25">Loopback</tspan>
+      <tspan x="241" y="307.25">127.0.0.1</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 283.6 328.7 L 383.25,328.7 L 383.25,366.7 L 333.425,376.2 L 283.6,366.7 L 283.6,328.7z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 283.6 328.7 L 383.25,328.7 L 383.25,366.7 L 333.425,376.2 L 283.6,366.7 L 283.6,328.7"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="333.425" y="343.7">
+      <tspan x="333.425" y="343.7">WiFi</tspan>
+      <tspan x="333.425" y="359.7">192.168.7.202</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="337.935" y="165.733">
+    <tspan x="337.935" y="165.733"></tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="337.935" y="165.733">
+    <tspan x="337.935" y="165.733"></tspan>
+  </text>
+  <text font-size="14.7205" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="193" y="24">
+    <tspan x="193" y="24">Default network namespace</tspan>
+  </text>
+  <g>
+    <path style="fill: #ffffff" d="M 378.913 129.7 L 436.763,129.7 C 444.75,129.7 451.225,138.654 451.225,149.7 C 451.225,160.746 444.75,169.7 436.763,169.7 L 378.913,169.7 C 370.925,169.7 364.45,160.746 364.45,149.7 C 364.45,138.654 370.925,129.7 378.913,129.7z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 378.913 129.7 L 436.763,129.7 C 444.75,129.7 451.225,138.654 451.225,149.7 C 451.225,160.746 444.75,169.7 436.763,169.7 L 378.913,169.7 C 370.925,169.7 364.45,160.746 364.45,149.7 C 364.45,138.654 370.925,129.7 378.913,129.7"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="407.838" y="153.7">
+      <tspan x="407.838" y="153.7">Browser</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="407.838,169.7 407.838,295.25 284.361,295.25 "/>
+    <polygon style="fill: #000000" points="276.861,295.25 286.861,290.25 284.361,295.25 286.861,300.25 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="276.861,295.25 286.861,290.25 284.361,295.25 286.861,300.25 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="565.1" y="1.45" width="316.097" height="326.633"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="565.1" y="1.45" width="316.097" height="326.633"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="565.1" y="1.45" width="316.097" height="326.633"/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 781.588 275.283 L 848.838,275.283 L 848.838,313.283 L 815.213,322.783 L 781.588,313.283 L 781.588,275.283z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 781.588 275.283 L 848.838,275.283 L 848.838,313.283 L 815.213,322.783 L 781.588,313.283 L 781.588,275.283"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="815.213" y="290.283">
+      <tspan x="815.213" y="290.283">Loopback</tspan>
+      <tspan x="815.213" y="306.283">127.0.0.1</tspan>
+    </text>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="723.148" y="164.767">
+    <tspan x="723.148" y="164.767"></tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="723.148" y="164.767">
+    <tspan x="723.148" y="164.767"></tspan>
+  </text>
+  <text font-size="14.7205" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="578.213" y="23.0333">
+    <tspan x="578.213" y="23.0333">Container's network namespace</tspan>
+  </text>
+  <g>
+    <path style="fill: #ffffff" d="M 792.188 143.033 L 840.238,143.033 C 846.872,143.033 852.25,151.988 852.25,163.033 C 852.25,174.079 846.872,183.033 840.238,183.033 L 792.188,183.033 C 785.554,183.033 780.175,174.079 780.175,163.033 C 780.175,151.988 785.554,143.033 792.188,143.033z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" d="M 792.188 143.033 L 840.238,143.033 C 846.872,143.033 852.25,151.988 852.25,163.033 C 852.25,174.079 846.872,183.033 840.238,183.033 L 792.188,183.033 C 785.554,183.033 780.175,174.079 780.175,163.033 C 780.175,151.988 785.554,143.033 792.188,143.033"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="816.213" y="167.033">
+      <tspan x="816.213" y="167.033">Server</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="816.213" y1="183.033" x2="815.512" y2="264.31"/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="810.469,269.267 815.512,264.31 820.469,269.353 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 395.1 328.45 L 494.75,328.45 L 494.75,366.45 L 444.925,375.95 L 395.1,366.45 L 395.1,328.45z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 395.1 328.45 L 494.75,328.45 L 494.75,366.45 L 444.925,375.95 L 395.1,366.45 L 395.1,328.45"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="444.925" y="343.45">
+      <tspan x="444.925" y="343.45">Docker bridge</tspan>
+      <tspan x="444.925" y="359.45">172.17.0.1</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="625.638" y1="351.483" x2="625.638" y2="351.483"/>
+    <polygon style="fill: #000000" points="625.638,351.483 615.638,356.483 618.138,351.483 615.638,346.483 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="625.638,351.483 615.638,356.483 618.138,351.483 615.638,346.483 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 575.813 327.733 L 675.463,327.733 L 675.463,365.733 L 625.638,375.233 L 575.813,365.733 L 575.813,327.733z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 575.813 327.733 L 675.463,327.733 L 675.463,365.733 L 625.638,375.233 L 575.813,365.733 L 575.813,327.733"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="625.638" y="342.733">
+      <tspan x="625.638" y="342.733">Docker bridge</tspan>
+      <tspan x="625.638" y="358.733">172.17.0.2</tspan>
+    </text>
+  </g>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="494.75" y1="347.45" x2="575.813" y2="346.733"/>
+</svg>
