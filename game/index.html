@@ -1,0 +1,65 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catch The Cat</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+
+        #catch-the-cat {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 24px);
+            margin: 0 auto;
+            height: 90vh;
+            height: 90dvh;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
+    <script src="catch-the-cat.js"></script>
+    <div id="catch-the-cat"></div>
+    <script>
+      window.game = new CatchTheCatGame({
+        w: 15,
+        h: 15,
+        r: 25,
+        initialWallCount: 12,
+        backgroundColor: 0xffffff,
+        parent: 'catch-the-cat',
+        statusBarAlign: 'center',
+        credit: 'github.com/ganlvtech'
+      });
+
+      const container = document.getElementById('catch-the-cat');
+      const originalZoom = 1 / window.devicePixelRatio;
+
+      function fitGame() {
+        const scale = window.game.scale;
+        if (!window.game.isBooted || !scale.gameSize.width || !scale.gameSize.height) return;
+
+        // Keep the board's coordinates unchanged; Phaser also updates input scaling.
+        const zoom = Math.min(
+          originalZoom,
+          container.clientWidth / scale.gameSize.width,
+          container.clientHeight / scale.gameSize.height
+        );
+        if (zoom > 0) scale.setZoom(zoom);
+      }
+
+      window.game.events.once(Phaser.Core.Events.READY, fitGame);
+      new ResizeObserver(fitGame).observe(container);
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>Seeno</name>
+    <email>umm233@protonmail.com</email>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <icon>https://www.gravatar.com/avatar/9c41c1534196555bd362023980982242</icon>
+  <id>https://umm.js.org/</id>
+  <link href="https://umm.js.org/" rel="alternate"/>
+  <link href="https://umm.js.org/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, Seeno</rights>
+  <subtitle>233 no fun</subtitle>
+  <title>三分之七橙</title>
+  <updated>2026-08-01T07:53:16.000Z</updated>
+  <entry>
+    <author>
+      <name>Seeno</name>
+      <email>umm233@protonmail.com</email>
+    </author>
+    <category term="Java" scheme="https://umm.js.org/categories/Java/"/>
+    <category term="Java" scheme="https://umm.js.org/tags/Java/"/>
+    <category term="fastjson" scheme="https://umm.js.org/tags/fastjson/"/>
+    <id>https://umm.js.org/p/52421f8/</id>
+    <link href="https://umm.js.org/p/52421f8/"/>
+    <published>2026-08-01T07:53:16.000Z</published>
+    <summary>
+      <![CDATA[<p>在 fastjson 1.2.83 版本中，偶然出现类似下面反序列化异常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.IllegalAccessException: class com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer cannot access a member of class  [className] with modifiers &quot;public&quot;</span><br></pre></td></tr></table></figure>]]>
+    </summary>
+    <title>fastjson 反序列化异常分析</title>
+    <updated>2026-08-01T07:53:16.000Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Seeno</name>
+      <email>umm233@protonmail.com</email>
+    </author>
+    <category term="Tools" scheme="https://umm.js.org/categories/Tools/"/>
+    <category term="Tool" scheme="https://umm.js.org/tags/Tool/"/>
+    <category term="Software" scheme="https://umm.js.org/tags/Software/"/>
+    <category term="uBlock" scheme="https://umm.js.org/tags/uBlock/"/>
+    <id>https://umm.js.org/p/51b230f0/</id>
+    <link href="https://umm.js.org/p/51b230f0/"/>
+    <published>2025-08-02T15:24:01.000Z</published>
+    <summary>
+      <![CDATA[<p>uBlock Origin 在 Chrome 139 版本之后就不受支持，由于 Chrome 中 Manifest v2支持被弃用，仅支持Manifest v3。具体可以参考 <a href="https://github.com/uBlockOrigin/uBlock-issues/wiki/About-Google-Chrome's-%22This-extension-may-soon-no-longer-be-supported%22">About Google Chrome’s “This extension may soon no longer be supported”</a></p>]]>
+    </summary>
+    <title>如何在Chrome中使用 uBlock Origin</title>
+    <updated>2025-08-02T15:24:01.000Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Seeno</name>
+      <email>umm233@protonmail.com</email>
+    </author>
+    <category term="日常" scheme="https://umm.js.org/categories/%E6%97%A5%E5%B8%B8/"/>
+    <category term="Note" scheme="https://umm.js.org/tags/Note/"/>
+    <category term="Kindle" scheme="https://umm.js.org/tags/Kindle/"/>
+    <id>https://umm.js.org/p/811ea67f/</id>
+    <link href="https://umm.js.org/p/811ea67f/"/>
+    <published>2025-03-09T15:02:35.000Z</published>
+    <summary>
+      <![CDATA[<p>三月是樱花盛开和飘落的时节</p>]]>
+    </summary>
+    <title>月记·202503</title>
+    <updated>2025-03-09T15:02:35.000Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Seeno</name>
+      <email>umm233@protonmail.com</email>
+    </author>
+    <category term="Git" scheme="https://umm.js.org/categories/Git/"/>
+    <category term="Git" scheme="https://umm.js.org/tags/Git/"/>
+    <category term="GitHub" scheme="https://umm.js.org/tags/GitHub/"/>
+    <id>https://umm.js.org/p/810d4974/</id>
+    <link href="https://umm.js.org/p/810d4974/"/>
+    <published>2025-03-09T13:10:50.000Z</published>
+    <summary>
+      <![CDATA[<p>记录一下 Git 中经常使用的操作以及一些问题解决方法</p>]]>
+    </summary>
+    <title>Git 笔记</title>
+    <updated>2025-03-09T13:10:50.000Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Seeno</name>
+      <email>umm233@protonmail.com</email>
+    </author>
+    <category term="日常" scheme="https://umm.js.org/categories/%E6%97%A5%E5%B8%B8/"/>
+    <category term="Note" scheme="https://umm.js.org/tags/Note/"/>
+    <category term="软路由" scheme="https://umm.js.org/tags/%E8%BD%AF%E8%B7%AF%E7%94%B1/"/>
+    <category term="Realtek" scheme="https://umm.js.org/tags/Realtek/"/>
+    <id>https://umm.js.org/p/2258a936/</id>
+    <link href="https://umm.js.org/p/2258a936/"/>
+    <published>2025-02-27T13:50:20.000Z</published>
+    <summary>
+      <![CDATA[<p>关于我两秒钟把路由器弄坏，花两小时修好这件事</p>]]>
+    </summary>
+    <title>月记·202502</title>
+    <updated>2025-02-27T13:50:20.000Z</updated>
+  </entry>
+</feed>
